@@ -1,21 +1,61 @@
+/* jslint node: true, esnext: true */
+"use strict";
 
+exports.createExpressionContext = function () {
 
-function expandString(str, quote, properties) {
-	return str.replace(/\$\{([^\}]+)\}/g, function (match, key) {
-		return quote(properties[key]);
-	});
-}
+  let properties = {};
 
-const RootContext = {
-  evaluate(expression) {
-
+  function quote(str) {
+    return str;
   }
-};
 
-exports.createContext = function() {
+  function evaluate(expression) {
+    const v = properties[expression];
+    if (v !== undefined) return v;
+    return '${' + v + '}';
+  }
 
+  function expand(object) {
+    if (typeof object === 'string' || object instanceof String) {
+      return object.replace(/\$\{([^\}]+)\}/g, function (match, key) {
+        return evaluate(key);
+      });
+    }
+    if (object === undefined || object === null ||
+      typeof object === 'number' ||  object instanceof Number) {
+      return object;
+    }
 
-  return Object.create(RootContext,{
-    evaluate();
-    });
+    if (Array.isArray(object)) {
+      return object.forEach(function (o) {
+        return expand(o)
+      });
+    }
+
+    //console.log(`expand: ${JSON.stringify(object)}`);
+
+    const newObject = {};
+
+    for (let key of Object.keys(object)) {
+      //console.log(`key: ${key} : ${object[key]}`);
+      newObject[key] = expand(object[key]);
+    }
+
+    return newObject;
+  }
+
+  return Object.create({
+    expand(object) {
+      return expand(object);
+    }
+  }, {
+    properties: {
+      get: function () {
+        return properties;
+      },
+      set: function (newProperties) {
+        properties = newProperties;
+      }
+    }
+  });
 };

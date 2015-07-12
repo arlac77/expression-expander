@@ -4,13 +4,25 @@
   "description": "expression evaluator",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cover": "node --harmony ./node_modules/istanbul-harmony/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
+    "doc": "./node_modules/.bin/jsdoc lib/*.js",
+    "test": "mocha --harmony_shipping test/*.js"
+  },
+  "engines": {
+    "iojs": "2.0.0"
   },
   "keywords": [
     "expression",
     "property",
     "evaluate"
   ],
+  "devDependencies": {
+    "jsdoc": "^3.3.2",
+    "chai": "3.0.0",
+    "conventional-changelog-generator": "0.0.3",
+    "istanbul-harmony": "0.3.16",
+    "mocha": "2.2.5"
+  },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause"
 }
