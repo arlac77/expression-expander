@@ -8,7 +8,7 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 
-const expression = require('../index.js');
+const expression = require('../lib/expression_context');
 
 
 describe('expression', function () {
@@ -16,10 +16,16 @@ describe('expression', function () {
   let context = expression.createExpressionContext();
 
   it('simple string expand', function () {
-    context.properties = { a : 1, b: 2 };
+    context.properties = {
+      a: 1,
+      b: 2
+    };
 
     assert(context.expand("${a}") == '1');
-    const expanded = context.expand({ "b" : 2, "c" : "${a}"});
+    const expanded = context.expand({
+      "b": 2,
+      "c": "${a}"
+    });
     //console.log(`${JSON.stringify(expanded)}`);
 
     assert(expanded.b == '2');

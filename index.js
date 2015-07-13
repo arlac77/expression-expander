@@ -28,7 +28,7 @@ exports.createExpressionContext = function () {
 
     if (Array.isArray(object)) {
       return object.forEach(function (o) {
-        return expand(o)
+        return expand(o);
       });
     }
 
