@@ -15,11 +15,13 @@ exports.createExpressionContext = function (options) {
 
   let properties = {};
 
-  function evaluate(expression) {
+  function _evaluate(expression) {
     const v = properties[expression];
     if (v !== undefined) return v;
     return '${' + v + '}';
   }
+
+  const evaluate = options.evaluate || _evaluate;
 
   function expand(object) {
     if (typeof object === 'string' || object instanceof String) {

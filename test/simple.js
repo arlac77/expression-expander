@@ -8,7 +8,7 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 
-const expression = require('../lib/expression_context');
+const expression = require('../index.js');
 
 
 describe('expression', function () {
