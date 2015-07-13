@@ -1,13 +1,19 @@
 /* jslint node: true, esnext: true */
 "use strict";
 
-exports.createExpressionContext = function () {
+function quote(str) {
+  return str;
+}
+
+exports.createExpressionContext = function (options) {
+
+  if (options === undefined) {
+    options = {};
+  }
+
+  const valueQuoter = options.valueQuoter || quote;
 
   let properties = {};
-
-  function quote(str) {
-    return str;
-  }
 
   function evaluate(expression) {
     const v = properties[expression];
@@ -18,7 +24,7 @@ exports.createExpressionContext = function () {
   function expand(object) {
     if (typeof object === 'string' || object instanceof String) {
       return object.replace(/\$\{([^\}]+)\}/g, function (match, key) {
-        return evaluate(key);
+        return valueQuoter(evaluate(key));
       });
     }
     if (object === undefined || object === null ||
@@ -27,12 +33,10 @@ exports.createExpressionContext = function () {
     }
 
     if (Array.isArray(object)) {
-      return object.forEach(function (o) {
+      return object.map(function (o) {
         return expand(o);
       });
     }
-
-    //console.log(`expand: ${JSON.stringify(object)}`);
 
     const newObject = {};
 
