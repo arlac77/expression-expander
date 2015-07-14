@@ -27,7 +27,7 @@ describe('expression', function () {
       assert(context.expand("A${a}${b}C") === 'A12C');
     });
 
-    it('expand string indirect', function () {
+    it('expand string transitive', function () {
       context.properties = {
         a: "${b}",
         b: 2
