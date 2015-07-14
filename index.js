@@ -17,8 +17,12 @@ exports.createExpressionContext = function (options) {
 
   function _evaluate(expression) {
     const v = properties[expression];
-    if (v !== undefined) return v;
-    return '${' + v + '}';
+    if (v === undefined) {
+      return '${' + v + '}';
+    }
+
+    //console.log(`${expression} -> ${v}`);
+    return v;
   }
 
   const evaluate = options.evaluate || _evaluate;
@@ -26,7 +30,7 @@ exports.createExpressionContext = function (options) {
   function expand(object) {
     if (typeof object === 'string' || object instanceof String) {
       return object.replace(/\$\{([^\}]+)\}/g, function (match, key) {
-        return valueQuoter(evaluate(key));
+        return valueQuoter(expand(evaluate(key)));
       });
     }
     if (object === undefined || object === null ||

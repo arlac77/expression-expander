@@ -16,7 +16,7 @@ describe('expression', function () {
   describe('plain', function () {
     let context = expression.createExpressionContext();
 
-    it('string expand', function () {
+    it('expand string', function () {
       context.properties = {
         a: 1,
         b: 2
@@ -27,7 +27,23 @@ describe('expression', function () {
       assert(context.expand("A${a}${b}C") === 'A12C');
     });
 
-    it('object expand', function () {
+    it('expand string indirect', function () {
+      context.properties = {
+        a: "${b}",
+        b: 2
+      };
+      assert(context.expand("${a}") == '2');
+    });
+
+    it('expand undefined', function () {
+      assert(context.expand(undefined) === undefined);
+    });
+
+    it('expand null', function () {
+      assert(context.expand(null) === null);
+    });
+
+    it('expand object', function () {
       context.properties = {
         a: 1,
         b: 2
@@ -42,7 +58,7 @@ describe('expression', function () {
       assert(expanded.c == '1');
     });
 
-    it('array expand', function () {
+    it('expand array', function () {
       context.properties = {
         a: 1,
         b: 2
