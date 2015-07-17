@@ -12,13 +12,14 @@ exports.createExpressionContext = function (options) {
   }
 
   const valueQuoter = options.valueQuoter || quote;
+  const maxNestingLevel = 5;
 
   let properties = {};
 
   function _evaluate(expression) {
     const v = properties[expression];
     if (v === undefined) {
-      return '${' + v + '}';
+      return '${' + expression + '}';
     }
 
     //console.log(`${expression} -> ${v}`);
@@ -27,10 +28,11 @@ exports.createExpressionContext = function (options) {
 
   const evaluate = options.evaluate || _evaluate;
 
-  function expand(object) {
+  function _expand(object, level) {
+    if (level >= maxNestingLevel) throw new Error(`max nesting level ${maxNestingLevel} reached: ${object}`);
     if (typeof object === 'string' || object instanceof String) {
       return object.replace(/\$\{([^\}]+)\}/g, function (match, key) {
-        return valueQuoter(expand(evaluate(key)));
+        return valueQuoter(_expand(evaluate(key), level + 1));
       });
     }
     if (object === undefined || object === null ||
@@ -40,15 +42,14 @@ exports.createExpressionContext = function (options) {
 
     if (Array.isArray(object)) {
       return object.map(function (o) {
-        return expand(o);
+        return _expand(o, level + 1);
       });
     }
 
     const newObject = {};
 
     for (let key of Object.keys(object)) {
-      //console.log(`key: ${key} : ${object[key]}`);
-      newObject[key] = expand(object[key]);
+      newObject[key] = _expand(object[key], level + 1);
     }
 
     return newObject;
@@ -56,7 +57,7 @@ exports.createExpressionContext = function (options) {
 
   return Object.create({
     expand(object) {
-      return expand(object);
+      return _expand(object, 0);
     }
   }, {
     properties: {

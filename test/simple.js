@@ -89,4 +89,22 @@ describe('expression', function () {
     });
   });
 
+  describe('circular transitivity', function () {
+    let context = expression.createExpressionContext();
+
+    context.properties = {
+      a: '${b}',
+      b: '${a}'
+    };
+    it('string expand should fail', function () {
+      try {
+        context.expand("${a}");
+        assert(false);
+      }
+      catch(e) {
+        assert(true);
+      }
+    });
+  });
+
 });
