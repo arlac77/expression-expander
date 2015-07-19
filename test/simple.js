@@ -43,6 +43,11 @@ describe('expression', function () {
       assert(context.expand(null) === null);
     });
 
+    it('expand undefined', function () {
+      let context = expression.createExpressionContext();
+      assert(context.expand("${a}") === '');
+    });
+
     it('expand object', function () {
       context.properties = {
         a: 1,

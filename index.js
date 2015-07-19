@@ -1,7 +1,7 @@
 /* jslint node: true, esnext: true */
 "use strict";
 
-function quote(str) {
+function quote(str,expression) {
   return str;
 }
 
@@ -18,11 +18,7 @@ exports.createExpressionContext = function (options) {
 
   function _evaluate(expression) {
     const v = properties[expression];
-    if (v === undefined) {
-      return '${' + expression + '}';
-    }
 
-    //console.log(`${expression} -> ${v}`);
     return v;
   }
 
@@ -32,7 +28,10 @@ exports.createExpressionContext = function (options) {
     if (level >= maxNestingLevel) throw new Error(`max nesting level ${maxNestingLevel} reached: ${object}`);
     if (typeof object === 'string' || object instanceof String) {
       return object.replace(/\$\{([^\}]+)\}/g, function (match, key) {
-        return valueQuoter(_expand(evaluate(key), level + 1));
+        const value = evaluate(key);
+        if(value === undefined) return '';
+
+        return valueQuoter(_expand(value, level + 1));
       });
     }
     if (object === undefined || object === null ||
