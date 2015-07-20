@@ -17,10 +17,10 @@
     "evaluate"
   ],
   "devDependencies": {
-    "jsdoc": "^3.3.2",
-    "chai": "3.0.0",
+    "chai": "3.2.0",
     "conventional-changelog-generator": "0.0.3",
     "istanbul-harmony": "0.3.16",
+    "jsdoc": "^3.3.2",
     "mocha": "2.2.5"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
