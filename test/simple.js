@@ -22,9 +22,9 @@ describe('expression', function () {
         b: 2
       };
 
-      assert(context.expand("${a}") == '1');
-      assert(context.expand("A${a}C") === 'A1C');
-      assert(context.expand("A${a}${b}C") === 'A12C');
+      assert.equal(context.expand("${a}"), '1');
+      assert.equal(context.expand("A${a}C"), 'A1C');
+      assert.equal(context.expand("A${a}${b}C"), 'A12C');
     });
 
     it('expand string transitive', function () {
@@ -32,20 +32,20 @@ describe('expression', function () {
         a: "${b}",
         b: 2
       };
-      assert(context.expand("${a}") == '2');
+      assert.equal(context.expand("${a}"), '2');
     });
 
     it('expand undefined', function () {
-      assert(context.expand(undefined) === undefined);
+      assert.isUndefined(context.expand(undefined));
     });
 
     it('expand null', function () {
-      assert(context.expand(null) === null);
+      assert.isNull(context.expand(null));
     });
 
     it('expand undefined value', function () {
       let context = expression.createExpressionContext();
-      assert(context.expand("${a}") === '');
+      assert.equal(context.expand("${a}"), '');
     });
 
     it('expand object', function () {
@@ -59,8 +59,8 @@ describe('expression', function () {
         "c": "${a}"
       });
 
-      assert(expanded.b == '3');
-      assert(expanded.c == '1');
+      assert.equal(expanded.b, '3');
+      assert.equal(expanded.c, '1');
     });
 
     it('expand array', function () {
@@ -71,9 +71,9 @@ describe('expression', function () {
 
       const expanded = context.expand([0, "${a}", "${b}"]);
 
-      assert(expanded[0] == '0');
-      assert(expanded[1] == '1');
-      assert(expanded[2] == '2');
+      assert.equal(expanded[0], '0');
+      assert.equal(expanded[1], '1');
+      assert.equal(expanded[2], '2');
     });
   });
 
@@ -90,25 +90,21 @@ describe('expression', function () {
       };
 
       //console.log(`${context.expand("${a}")}`);
-      assert(context.expand("${a}") === "<1>");
+      assert.equal(context.expand("${a}"), "<1>");
     });
   });
 
   describe('circular transitivity', function () {
-    let context = expression.createExpressionContext();
+    const context = expression.createExpressionContext();
 
     context.properties = {
       a: '${b}',
       b: '${a}'
     };
     it('string expand should fail', function () {
-      try {
-        context.expand("${a}");
-        assert(false);
-      }
-      catch(e) {
-        assert(true);
-      }
+      assert.throws(function () {
+        context.expand("${a}")
+      });
     });
   });
 
