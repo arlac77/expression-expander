@@ -1,4 +1,4 @@
-/* global describe, it*/
+/* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
 "use strict";
@@ -37,6 +37,11 @@ describe('expression', function () {
 
     it('expand undefined', function () {
       assert.isUndefined(context.expand(undefined));
+    });
+
+    it('expand Date', function () {
+      const d = new Date();
+      assert.equal(context.expand(d),d);
     });
 
     it('expand null', function () {
@@ -103,7 +108,7 @@ describe('expression', function () {
     };
     it('string expand should fail', function () {
       assert.throws(function () {
-        context.expand("${a}")
+        context.expand("${a}");
       });
     });
   });
