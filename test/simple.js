@@ -45,7 +45,7 @@ describe('expression', function () {
 
     it('expand Date', function () {
       const d = new Date();
-      assert.equal(context.expand(d),d);
+      assert.equal(context.expand(d), d);
     });
 
     it('expand null', function () {
@@ -60,16 +60,19 @@ describe('expression', function () {
     it('expand object', function () {
       context.properties = {
         a: 1,
-        b: 2
+        b: 2,
+        c: 'nc'
       };
 
       const expanded = context.expand({
         "b": 3,
-        "c": "${a}"
+        "c": "${a}",
+        "${c}" : 4
       });
 
       assert.equal(expanded.b, '3');
       assert.equal(expanded.c, '1');
+      assert.equal(expanded.nc, '4');
     });
 
     it('expand array', function () {
@@ -95,7 +98,7 @@ describe('expression', function () {
 
     it('string expand', function () {
       context.properties = {
-        a: 1
+        a: '1'
       };
 
       //console.log(`${context.expand("${a}")}`);
