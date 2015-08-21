@@ -8,11 +8,11 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 
-const expression = require('../lib/expression');
+const expander = require('../lib/expander');
 
 describe('expression', function () {
   describe('complex', function () {
-    let context = expression.createExpressionContext();
+    let context = expander.createContext();
     context.properties = {
       moreThanOne: {
         a: 1,

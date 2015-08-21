@@ -8,13 +8,12 @@ const assert = chai.assert;
 const expect = chai.expect;
 const should = chai.should();
 
-const expression = require('../lib/expression');
-
+const expander = require('../lib/expander');
 
 describe('expression', function () {
 
   describe('plain', function () {
-    let context = expression.createExpressionContext();
+    let context = expander.createContext();
 
     it('expand string', function () {
       context.properties = {
@@ -53,7 +52,7 @@ describe('expression', function () {
     });
 
     it('expand undefined value', function () {
-      let context = expression.createExpressionContext();
+      let context = expander.createContext();
       assert.equal(context.expand("${a}"), '');
     });
 
@@ -90,7 +89,7 @@ describe('expression', function () {
   });
 
   describe('with valueQuoter', function () {
-    let context = expression.createExpressionContext({
+    let context = expander.createContext({
       valueQuoter: function (o) {
         return '<' + o + '>';
       }
@@ -107,7 +106,7 @@ describe('expression', function () {
   });
 
   describe('circular transitivity', function () {
-    const context = expression.createExpressionContext();
+    const context = expander.createContext();
 
     context.properties = {
       a: '${b}',
