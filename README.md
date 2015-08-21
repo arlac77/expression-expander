@@ -9,6 +9,9 @@
 
 Expression Expander
 -------------------
+
+Expands expressions in json objects
+
 # example
 
 ## file.js
@@ -28,3 +31,15 @@ Output
 ```
 aValue
 ```
+
+# install
+
+With [npm](http://npmjs.org) do:
+
+```
+npm install expand-expression
+```
+
+# license
+
+BSD-2-Clause
