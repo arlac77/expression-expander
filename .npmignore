@@ -1,4 +1,9 @@
-*.log
 coverage
+node_modules
+*.log
+*.tmp
+.DS_Store
+.test
+.tmp
 .gitignore
 .npmrc

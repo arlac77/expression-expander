@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arlac77/expression-expander.git"
+    "url": "https://github.com/arlac77/expand-expression.git"
   },
   "engines": {
     "iojs": "2.0.0"
@@ -36,7 +36,7 @@
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/arlac77/expression-expander/issues"
+    "url": "https://github.com/arlac77/expand-expression/issues"
   },
-  "homepage": "https://github.com/arlac77/expression-expander#readme"
+  "homepage": "https://github.com/arlac77/expand-expression#readme"
 }
