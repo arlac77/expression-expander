@@ -21,15 +21,19 @@ var ee = require('expression-expander');
 
 var context = ee.createContext();
 
-cntext.properties = { aKey : "aValue" };
+cntext.properties = { aKey : "aValue", moreKeys : { "a" : 1, "b" : 2 } };
 
 console.log(context.expand("${aKey}"));
+
+// expanding hole expressions at the key position
+console.log(JSON.stringify(context.expand({"${moreKeys}" : {} })));
 ```
 
 Output
 
 ```
 aValue
+{ "a" : 1, "b" : 2 }
 ```
 
 # install
