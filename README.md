@@ -1,5 +1,5 @@
 # expand-expression
-[![npm](https://img.shields.io/npm/v/expand-expression.svg)](https://www.npmjs.com/package/expand-expression)
+[![npm](https://img.shields.io/npm/v/expression-expander.svg)](https://www.npmjs.com/package/expression-expander)
 [![Build Status](https://secure.travis-ci.org/arlac77/expand-expression.png)](http://travis-ci.org/arlac77/expand-expression)
 [![Coverage Status](https://coveralls.io/repos/arlac77/expand-expression/badge.svg)](https://coveralls.io/r/arlac77/expand-expression)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/expand-expression.svg?style=flat-square)](https://github.com/arlac77/expand-expression/issues)
