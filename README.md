@@ -1,7 +1,7 @@
 
 [![npm](https://img.shields.io/npm/v/expression-expander.svg)](https://www.npmjs.com/package/expression-expander)
 [![Build Status](https://secure.travis-ci.org/arlac77/expression-expander.png)](http://travis-ci.org/arlac77/expression-expander)
-[![Coverage Status](https://coveralls.io/repos/arlac77/expression-expander/badge.svg)](https://coveralls.io/r/arlac77/expression-expander)
+[![Coverage Status](https://coveralls.io/repos/arlac77/expression-expander/badge.svg?branch=master&service=github)](https://coveralls.io/github/arlac77/expression-expander?branch=master)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/expression-expander.svg?style=flat-square)](https://github.com/arlac77/expression-expander/issues)
 [![Dependency Status](https://david-dm.org/arlac77/expression-expander.svg)](https://david-dm.org/arlac77/expression-expander)
 [![devDependency Status](https://david-dm.org/arlac77/expression-expander/dev-status.svg)](https://david-dm.org/arlac77/expression-expander#info=devDependencies)
