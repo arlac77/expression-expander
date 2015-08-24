@@ -1,6 +1,5 @@
 {
   "name": "expression-expander",
-  "version": "1.1.1",
   "description": "expands expressions in json objects",
   "main": "lib/expander.js",
   "scripts": {
