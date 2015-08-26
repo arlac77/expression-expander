@@ -1,5 +1,6 @@
 
 [![npm](https://img.shields.io/npm/v/expression-expander.svg)](https://www.npmjs.com/package/expression-expander)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/arlac77/expression-expander)
 [![Build Status](https://secure.travis-ci.org/arlac77/expression-expander.png)](http://travis-ci.org/arlac77/expression-expander)
 [![Coverage Status](https://coveralls.io/repos/arlac77/expression-expander/badge.svg?branch=master&service=github)](https://coveralls.io/github/arlac77/expression-expander?branch=master)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/expression-expander.svg?style=flat-square)](https://github.com/arlac77/expression-expander/issues)

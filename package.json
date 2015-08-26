@@ -8,8 +8,6 @@
     "doc": "./node_modules/.bin/jsdoc lib/*.js",
     "test": "mocha --harmony test/*.js",
     "ci-test-report": "mocha --harmony --reporter mocha-html-reporter test/*.js",
-    "postpublish-disabled": "semantic-release post",
-    "prepublish-disabled": "semantic-release pre",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -29,7 +27,6 @@
   ],
   "devDependencies": {
     "chai": "3.2.0",
-    "conventional-changelog-generator": "0.0.3",
     "cracks": "^3.0.2",
     "istanbul-harmony": "0.3.16",
     "jsdoc": "^3.3.2",
