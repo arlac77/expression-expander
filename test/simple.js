@@ -26,6 +26,15 @@ describe('expression', function () {
       assert.equal(context.expand("A${a}${b}C"), 'A12C');
     });
 
+    it('expand string with undefined value', function () {
+      context.properties = {
+        b: 2
+      };
+
+      assert.equal(context.expand("B${a}A"), 'BA');
+      assert.equal(context.expand("${a}"), '');
+    });
+
     it('expand string transitive', function () {
       context.properties = {
         a: "${b}",
