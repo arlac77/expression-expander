@@ -37,6 +37,8 @@ aValue
 { "a" : 1, "b" : 2 }
 ```
 
+jsdoc can be found [here](http://arlac77.github.io/modules/expression-expander/doc/).
+
 # install
 
 With [npm](http://npmjs.org) do:
