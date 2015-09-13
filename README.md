@@ -8,6 +8,7 @@
 [![Dependency Status](https://david-dm.org/arlac77/expression-expander.svg)](https://david-dm.org/arlac77/expression-expander)
 [![devDependency Status](https://david-dm.org/arlac77/expression-expander/dev-status.svg)](https://david-dm.org/arlac77/expression-expander#info=devDependencies)
 [![docs](http://inch-ci.org/github/arlac77/expression-expander.svg?branch=master)](http://inch-ci.org/github/arlac77/expression-expander)
+[![downloads](http://img.shields.io/npm/dm/expression-expander?style=flat-square)](https://npmjs.org/package/expression-expander)
 
 Expression Expander
 -------------------
