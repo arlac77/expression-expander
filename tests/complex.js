@@ -3,10 +3,10 @@
 
 "use strict";
 
-const chai = require('chai');
-const assert = chai.assert;
-const expect = chai.expect;
-const should = chai.should();
+const chai = require('chai'),
+  assert = chai.assert,
+  expect = chai.expect,
+  should = chai.should();
 
 const expander = require('../lib/expander');
 
@@ -27,7 +27,7 @@ describe('expression', function () {
     });
 
     it('expand string in array to object', function () {
-      const expanded = context.expand(["${moreThanOne}",2,3]);
+      const expanded = context.expand(["${moreThanOne}", 2, 3]);
       assert.equal(expanded[0].a, 1);
       assert.equal(expanded[0].b, 2);
       assert.equal(expanded[1], 2);
@@ -44,11 +44,10 @@ describe('expression', function () {
 
     it('expand object value to object', function () {
       const expanded = context.expand({
-        "aKey" : "${moreThanOne}"
+        "aKey": "${moreThanOne}"
       });
       assert.equal(expanded.aKey.a, 1);
       assert.equal(expanded.aKey.b, 2);
     });
-
   });
 });
