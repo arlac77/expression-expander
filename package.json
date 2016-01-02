@@ -3,9 +3,9 @@
   "description": "expands expressions in json objects",
   "main": "lib/expander.js",
   "scripts": {
-    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
+    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
     "doc": "./node_modules/.bin/jsdoc lib/*.js",
-    "test": "mocha --harmony test/*.js",
+    "test": "mocha --harmony tests/*.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -13,19 +13,23 @@
     "url": "https://github.com/arlac77/expression-expander.git"
   },
   "engines": {
-    "node": ">=4.0.0"
-  },
-  "release": {
-    "debug": false
+    "node": ">=4.2.1"
   },
   "keywords": [
     "expression",
     "property",
     "evaluate"
   ],
+  "release": {
+    "verifyRelease": "cracks"
+  },
   "devDependencies": {
     "chai": "3.4.1",
+<<<<<<< HEAD
     "coveralls": "2.11.5",
+=======
+    "coveralls": "2.11.6",
+>>>>>>> master
     "cracks": "3.1.1",
     "istanbul": "0.4.1",
     "jsdoc": "3.4.0",

@@ -3,10 +3,10 @@
 
 "use strict";
 
-const chai = require('chai');
-const assert = chai.assert;
-const expect = chai.expect;
-const should = chai.should();
+const chai = require('chai'),
+  assert = chai.assert,
+  expect = chai.expect,
+  should = chai.should();
 
 const expander = require('../lib/expander');
 
@@ -75,7 +75,7 @@ describe('expression', function () {
       const expanded = context.expand({
         "b": 3,
         "c": "${a}",
-        "${c}" : 4
+        "${c}": 4
       });
 
       assert.equal(expanded.b, '3');
@@ -127,5 +127,4 @@ describe('expression', function () {
       });
     });
   });
-
 });
