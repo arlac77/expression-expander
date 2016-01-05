@@ -46,7 +46,7 @@ jsdoc can be found [here](http://arlac77.github.io/modules/expression-expander/d
 
 With [npm](http://npmjs.org) do:
 
-```
+```shell
 npm install expression-expander
 ```
 
