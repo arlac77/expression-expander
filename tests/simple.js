@@ -18,12 +18,14 @@ describe('expression', function () {
     it('expand string', function () {
       context.properties = {
         a: 1,
-        b: 2
+        b: 2,
+        c: "text"
       };
 
       assert.equal(context.expand("${a}"), '1');
       assert.equal(context.expand("A${a}C"), 'A1C');
       assert.equal(context.expand("A${a}${b}C"), 'A12C');
+      assert.equal(context.expand("A${c}C"), 'AtextC');
     });
 
     it('expand string with undefined value', function () {
