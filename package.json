@@ -26,6 +26,7 @@
   "devDependencies": {
     "chai": "3.4.1",
     "coveralls": "2.11.6",
+    "cz-conventional-changelog": "^1.1.5",
     "cracks": "3.1.1",
     "istanbul": "0.4.1",
     "jsdoc": "3.4.0",
@@ -37,5 +38,10 @@
   "bugs": {
     "url": "https://github.com/arlac77/expression-expander/issues"
   },
-  "homepage": "https://github.com/arlac77/expression-expander#readme"
+  "homepage": "https://github.com/arlac77/expression-expander#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
