@@ -23,11 +23,11 @@ Expands expressions in json objects
 ## file.js
 
 ```js
-var ee = require('expression-expander');
+let ee = require('expression-expander');
 
-var context = ee.createContext();
+let context = ee.createContext();
 
-cntext.properties = { aKey : "aValue", moreKeys : { "a" : 1, "b" : 2 } };
+context.properties = { aKey : "aValue", moreKeys : { "a" : 1, "b" : 2 } };
 
 console.log(context.expand("${aKey}"));
 
