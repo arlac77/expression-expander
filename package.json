@@ -31,7 +31,7 @@
     "istanbul": "0.4.3",
     "jsdoc": "3.4.0",
     "markdown-doctest": "^0.6.0",
-    "mocha": "2.4.5",
+    "mocha": "2.5.1",
     "semantic-release": "^6.2.2"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
