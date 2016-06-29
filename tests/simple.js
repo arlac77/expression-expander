@@ -1,7 +1,7 @@
 /* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const chai = require('chai'),
   assert = chai.assert,
@@ -19,13 +19,13 @@ describe('expression', function () {
       context.properties = {
         a: 1,
         b: 2,
-        c: "text"
+        c: 'text'
       };
 
-      assert.equal(context.expand("${a}"), '1');
-      assert.equal(context.expand("A${a}C"), 'A1C');
-      assert.equal(context.expand("A${a}${b}C"), 'A12C');
-      assert.equal(context.expand("A${c}C"), 'AtextC');
+      assert.equal(context.expand('${a}'), '1');
+      assert.equal(context.expand('A${a}C'), 'A1C');
+      assert.equal(context.expand('A${a}${b}C'), 'A12C');
+      assert.equal(context.expand('A${c}C'), 'AtextC');
     });
 
     it('expand string with undefined value', function () {
@@ -33,16 +33,16 @@ describe('expression', function () {
         b: 2
       };
 
-      assert.equal(context.expand("B${a}A"), 'BA');
-      assert.equal(context.expand("${a}"), '');
+      assert.equal(context.expand('B${a}A'), 'BA');
+      assert.equal(context.expand('${a}'), '');
     });
 
     it('expand string transitive', function () {
       context.properties = {
-        a: "${b}",
+        a: '${b}',
         b: 2
       };
-      assert.equal(context.expand("${a}"), '2');
+      assert.equal(context.expand('${a}'), '2');
     });
 
     it('expand undefined', function () {
@@ -64,7 +64,7 @@ describe('expression', function () {
 
     it('expand undefined value', function () {
       let context = expander.createContext();
-      assert.equal(context.expand("${a}"), '');
+      assert.equal(context.expand('${a}'), '');
     });
 
     it('expand object', function () {
@@ -75,9 +75,9 @@ describe('expression', function () {
       };
 
       const expanded = context.expand({
-        "b": 3,
-        "c": "${a}",
-        "${c}": 4
+        b: 3,
+        c: '${a}',
+        '${c}': 4
       });
 
       assert.equal(expanded.b, '3');
@@ -91,7 +91,7 @@ describe('expression', function () {
         b: 2
       };
 
-      const expanded = context.expand([0, "${a}", "${b}"]);
+      const expanded = context.expand([0, '${a}', '${b}']);
 
       assert.equal(expanded[0], '0');
       assert.equal(expanded[1], '1');
@@ -111,8 +111,8 @@ describe('expression', function () {
         a: '1'
       };
 
-      //console.log(`${context.expand("${a}")}`);
-      assert.equal(context.expand("${a}"), "<1>");
+      //console.log(`${context.expand('${a}')}`);
+      assert.equal(context.expand('${a}'), '<1>');
     });
   });
 
@@ -125,7 +125,7 @@ describe('expression', function () {
     };
     it('string expand should fail', function () {
       assert.throws(function () {
-        context.expand("${a}");
+        context.expand('${a}');
       });
     });
   });

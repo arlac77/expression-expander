@@ -1,7 +1,7 @@
 /* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const chai = require('chai'),
   assert = chai.assert,
@@ -24,7 +24,7 @@ describe('expand special', function () {
     });
 
     it('expand string to object', function () {
-      assert.equal(context.expand("${2 * 3}"), 6);
+      assert.equal(context.expand('${2 * 3}'), 6);
     });
   });
 });
