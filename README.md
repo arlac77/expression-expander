@@ -23,7 +23,7 @@ Expands expressions in json objects
 ## file.js
 
 ```js
-let ee = require('expression-expander');
+const ee = require('expression-expander');
 
 let context = ee.createContext();
 
