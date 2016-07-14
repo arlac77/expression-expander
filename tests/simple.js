@@ -10,12 +10,11 @@ const chai = require('chai'),
 
 const expander = require('../lib/expander');
 
-describe('expression', function () {
+describe('expression', () => {
+  describe('plain', () => {
+    const context = expander.createContext();
 
-  describe('plain', function () {
-    let context = expander.createContext();
-
-    it('expand string', function () {
+    it('expand string', () => {
       context.properties = {
         a: 1,
         b: 2,
@@ -45,29 +44,22 @@ describe('expression', function () {
       assert.equal(context.expand('${a}'), '2');
     });
 
-    it('expand undefined', function () {
-      assert.isUndefined(context.expand(undefined));
-    });
+    it('expand undefined', () => assert.isUndefined(context.expand(undefined)));
+    it('expand NaN', () => assert.isNaN(context.expand(NaN)));
 
-    it('expand NaN', function () {
-      assert.isNaN(context.expand(NaN));
-    });
-
-    it('expand Date', function () {
+    it('expand Date', () => {
       const d = new Date();
       assert.equal(context.expand(d), d);
     });
 
-    it('expand null', function () {
-      assert.isNull(context.expand(null));
-    });
+    it('expand null', () => assert.isNull(context.expand(null)));
 
-    it('expand undefined value', function () {
-      let context = expander.createContext();
+    it('expand undefined value', () => {
+      const context = expander.createContext();
       assert.equal(context.expand('${a}'), '');
     });
 
-    it('expand object', function () {
+    it('expand object', () => {
       context.properties = {
         a: 1,
         b: 2,
@@ -85,7 +77,7 @@ describe('expression', function () {
       assert.equal(expanded.nc, '4');
     });
 
-    it('expand array', function () {
+    it('expand array', () => {
       context.properties = {
         a: 1,
         b: 2
@@ -99,14 +91,14 @@ describe('expression', function () {
     });
   });
 
-  describe('with valueQuoter', function () {
+  describe('with valueQuoter', () => {
     let context = expander.createContext({
       valueQuoter: function (o) {
         return '<' + o + '>';
       }
     });
 
-    it('string expand', function () {
+    it('string expand', () => {
       context.properties = {
         a: '1'
       };
@@ -116,17 +108,15 @@ describe('expression', function () {
     });
   });
 
-  describe('circular transitivity', function () {
+  describe('circular transitivity', () => {
     const context = expander.createContext();
 
     context.properties = {
       a: '${b}',
       b: '${a}'
     };
-    it('string expand should fail', function () {
-      assert.throws(function () {
-        context.expand('${a}');
-      });
+    it('string expand should fail', () => {
+      assert.throws(() => context.expand('${a}'));
     });
   });
 });

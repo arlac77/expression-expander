@@ -10,9 +10,9 @@ const chai = require('chai'),
 
 const expander = require('../lib/expander');
 
-describe('expression', function () {
-  describe('complex', function () {
-    let context = expander.createContext();
+describe('expression', () => {
+  describe('complex', () => {
+    const context = expander.createContext();
     context.properties = {
       moreThanOne: {
         a: 1,
@@ -20,20 +20,20 @@ describe('expression', function () {
       }
     };
 
-    it('expand string to object', function () {
+    it('expand string to object', () => {
       const expanded = context.expand("${moreThanOne}");
       assert.equal(expanded.a, 1);
       assert.equal(expanded.b, 2);
     });
 
-    it('expand string in array to object', function () {
+    it('expand string in array to object', () => {
       const expanded = context.expand(["${moreThanOne}", 2, 3]);
       assert.equal(expanded[0].a, 1);
       assert.equal(expanded[0].b, 2);
       assert.equal(expanded[1], 2);
     });
 
-    it('expand object key to object', function () {
+    it('expand object key to object', () => {
       const expanded = context.expand({
         "${moreThanOne}": {}
       });
@@ -42,7 +42,7 @@ describe('expression', function () {
       assert.equal(expanded.b, 2);
     });
 
-    it('expand object value to object', function () {
+    it('expand object value to object', () => {
       const expanded = context.expand({
         "aKey": "${moreThanOne}"
       });
