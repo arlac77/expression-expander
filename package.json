@@ -1,5 +1,6 @@
 {
   "name": "expression-expander",
+  "version": "0.0.0-semantic-release",
   "description": "expands expressions in json objects",
   "main": "lib/expander.js",
   "scripts": {
