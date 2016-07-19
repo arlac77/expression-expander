@@ -35,15 +35,26 @@ describe('expand special', () => {
         key5: [0, '${value}']
       }
     }), {
-      key1: 'key1',
+      key1: '/key1',
       key2: {
-        key3: 'key2/key3',
-        key4: [0, 'key2/key4/1'],
-        key5: [0, {
-          key3: '${path}',
-          key4: [0, '${path}'],
-          key5: [0, '${value}']
-        }]
+        key3: '/key2/key3',
+        key4: [0, '/key2/key4/1'],
+        key5: [
+          0, {
+            key1: "${path}",
+            key2: {
+              key3: "${path}",
+              key4: [
+                0,
+                "${path}"
+              ],
+              key5: [
+                0,
+                "${value}"
+              ]
+            }
+          }
+        ]
       }
     }));
   });
