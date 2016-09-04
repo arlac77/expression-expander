@@ -14,7 +14,7 @@
     "url": "https://github.com/arlac77/expression-expander.git"
   },
   "engines": {
-    "node": ">=6.2"
+    "node": ">=6.5"
   },
   "keywords": [
     "expression",
