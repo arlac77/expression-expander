@@ -8,7 +8,7 @@ const chai = require('chai'),
   expect = chai.expect,
   should = chai.should();
 
-const expander = require('../lib/expander');
+const expander = require('../dist/expander');
 
 describe('expand special', () => {
   describe('user defined evaluate', () => {

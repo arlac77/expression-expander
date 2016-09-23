@@ -22,7 +22,7 @@ function _quote(str, expression) {
  *
  * @return {ExpressionExpander} newly created expansion context
  */
-exports.createContext = function (options = {}) {
+function createContext(options = {}) {
 
   const keepUndefinedValues = options.keepUndefinedValues === undefined ?
     false : options.keepUndefinedValues ? true : false;
@@ -134,4 +134,8 @@ exports.createContext = function (options = {}) {
   }
 
   return context;
+}
+
+export {
+  createContext
 };
