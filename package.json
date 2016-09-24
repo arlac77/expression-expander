@@ -24,7 +24,7 @@
     "property",
     "evaluate"
   ],
-  "_release": {
+  "release": {
     "verifyRelease": "cracks"
   },
   "devDependencies": {
