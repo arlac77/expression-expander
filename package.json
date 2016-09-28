@@ -36,7 +36,7 @@
     "jsdoc": "3.4.1",
     "markdown-doctest": "^0.8.1",
     "mocha": "3.1.0",
-    "rollup": "^0.36.0",
+    "rollup": "^0.36.1",
     "semantic-release": "6.3.0"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
