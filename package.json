@@ -37,7 +37,7 @@
     "markdown-doctest": "^0.8.1",
     "mocha": "3.1.0",
     "rollup": "^0.36.1",
-    "semantic-release": "6.3.0"
+    "semantic-release": "^6.3.1"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
