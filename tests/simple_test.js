@@ -10,6 +10,8 @@ const chai = require('chai'),
 
 const expander = require('../dist/expander');
 
+
+
 describe('expression', () => {
   describe('plain', () => {
     const context = expander.createContext();
@@ -119,4 +121,27 @@ describe('expression', () => {
       assert.throws(() => context.expand('${a}'));
     });
   });
+
+
+  describe('special marker', () => {
+    const context = expander.createContext({
+      leftMarker: '{{',
+      rightMarker: '}}',
+      markerRegexp: '\{\{([^\}]+)\}\}'
+    });
+
+    it('expand string', () => {
+      context.properties = {
+        a: 1,
+        b: 2,
+        c: 'text'
+      };
+
+      assert.equal(context.expand('{{a}}'), '1');
+      assert.equal(context.expand('A{{a}}C'), 'A1C');
+      assert.equal(context.expand('A{{a}}{{b}}C'), 'A12C');
+      assert.equal(context.expand('A{{c}}C'), 'AtextC');
+    });
+  });
+
 });

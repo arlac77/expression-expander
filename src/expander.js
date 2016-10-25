@@ -24,6 +24,12 @@ function _quote(str, expression) {
  */
 function createContext(options = {}) {
 
+  const leftMarker = options.leftMarker || '${';
+  const rightMarker = options.rightMarker || '}';
+  const markerRegexp = new RegExp(options.markerRegexp || /\$\{([^\}]+)\}/, 'g');
+  const markerWholeRegexp = options.markerRegexp ? new RegExp('^' + options.markerRegexp + '$', '') :
+    /^\$\{([^\}]+)\}$/;
+
   const keepUndefinedValues = options.keepUndefinedValues === undefined ?
     false : options.keepUndefinedValues ? true : false;
 
@@ -68,10 +74,10 @@ function createContext(options = {}) {
     if (path.length >= maxNestingLevel) throw new Error(`Max nesting level ${maxNestingLevel} reached: ${object}`);
     if (typeof object === 'string' || object instanceof String) {
       let wholeValue;
-      object.replace(/^\$\{([^\}]+)\}$/, (match, key) => {
+      object.replace(markerWholeRegexp, (match, key) => {
         wholeValue = evaluate(key, context, path);
         if (wholeValue === undefined) {
-          wholeValue = keepUndefinedValues ? '${' + key + '}' : '';
+          wholeValue = keepUndefinedValues ? leftMarker + key + rightMarker : '';
         }
         if (typeof wholeValue === 'string' || wholeValue instanceof String) {
           wholeValue = valueQuoter(_expand(wholeValue, path));
@@ -82,11 +88,11 @@ function createContext(options = {}) {
         return wholeValue;
       }
 
-      return object.replace(/\$\{([^\}]+)\}/g, (match, key) => {
+      return object.replace(markerRegexp, (match, key) => {
         const value = evaluate(key, context, path);
 
         if (value === undefined) {
-          if (keepUndefinedValues) return '${' + key + '}';
+          if (keepUndefinedValues) return leftMarker + key + rightMarker;
           return '';
         }
 
