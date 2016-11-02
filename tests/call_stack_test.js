@@ -12,26 +12,12 @@ const expander = require('../dist/expander');
 
 describe('expression', () => {
   const context = expander.createContext({
-    keepUndefinedValues: true,
-    leftMarker: '{{',
-    rightMarker: '}}',
-    markerRegexp: '\{\{([^\}]+)\}\}'
+    keepUndefinedValues: true
   });
 
-  context.properties = {
-    /*  'github.user': 'user',
-      'github.repo': 'repo',
-      'name': 'repo',
-      'date.year': '2016',
-      'license.owner': 'user' */
-  };
-
   const json = {
-    "name": "{{name}}",
-    "version": "0.0.0-semantic-release",
-    "module": "{{module}}",
-    "main": "{{main}}"
+    key: '${unknown}'
   };
 
-  it('can expand', () => assert.equal(context.expand(json).module, 'module'));
+  it('can expand', () => assert.equal(context.expand(json).key, '${unknown}'));
 });
