@@ -10,7 +10,7 @@ const chai = require('chai'),
 
 const expander = require('../dist/expander');
 
-describe('expression', () => {
+describe('unknown value', () => {
   const context = expander.createContext({
     keepUndefinedValues: true
   });
