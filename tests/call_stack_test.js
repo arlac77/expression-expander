@@ -12,7 +12,7 @@ const expander = require('../dist/expander');
 
 describe('unknown value', () => {
   const context = expander.createContext({
-    keepUndefinedValues: true
+    //keepUndefinedValues: true
   });
 
   const json = {
