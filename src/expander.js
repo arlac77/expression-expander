@@ -78,8 +78,7 @@ function createContext(options = {}) {
         wholeValue = evaluate(key, context, path);
         if (wholeValue === undefined) {
           wholeValue = keepUndefinedValues ? leftMarker + key + rightMarker : '';
-        }
-        if (typeof wholeValue === 'string' || wholeValue instanceof String) {
+        } else if (typeof wholeValue === 'string' || wholeValue instanceof String) {
           wholeValue = valueQuoter(_expand(wholeValue, path));
         }
       });

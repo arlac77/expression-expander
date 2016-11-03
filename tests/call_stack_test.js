@@ -15,10 +15,6 @@ describe('unknown value', () => {
     keepUndefinedValues: true
   });
 
-  context.properties = {
-    unknown : 'unknown' 
-  };
-  
   const json = {
     key: '${unknown}'
   };
