@@ -10,4 +10,54 @@
 [![devDependency Status](https://david-dm.org/arlac77/expression-expander/dev-status.svg)](https://david-dm.org/arlac77/expression-expander#info=devDependencies)
 [![docs](http://inch-ci.org/github/arlac77/expression-expander.svg?branch=master)](http://inch-ci.org/github/arlac77/expression-expander)
 [![downloads](http://img.shields.io/npm/dm/expression-expander.svg?style=flat-square)](https://npmjs.org/package/expression-expander)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
+Expression Expander
+-------------------
+
+Expands expressions in json objects
+
+# example
+
+## file.js
+
+```js
+const ee = require('expression-expander');
+
+let context = ee.createContext();
+
+context.properties = { aKey : "aValue", moreKeys : { "a" : 1, "b" : 2 } };
+
+console.log(context.expand("${aKey}"));
+
+// expanding hole expressions at the key position
+console.log(JSON.stringify(context.expand({"${moreKeys}" : {} })));
+```
+
+Output
+
+```
+aValue
+{ "a" : 1, "b" : 2 }
+```
+
+# API Reference
+{{#modules~}}
+- {{name}}
+{{/modules}}
+
+{{#functions}}* {{>docs}}
+{{/functions}}
+* * *
+
+# install
+
+With [npm](http://npmjs.org) do:
+
+```shell
+npm install expression-expander
+```
+
+# license
+
+BSD-2-Clause
