@@ -16,7 +16,7 @@
 Expression Expander
 -------------------
 
-Expands expressions in json objects
+Expands expressions in object graphs
 
 # example
 

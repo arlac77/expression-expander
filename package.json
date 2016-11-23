@@ -1,7 +1,7 @@
 {
   "name": "expression-expander",
   "version": "0.0.0-semantic-release",
-  "description": "expands expressions in json objects",
+  "description": "expands expressions in object graphs",
   "main": "dist/expander.js",
   "jsnext:main": "src/expander.js",
   "module": "src/expander.js",
@@ -52,10 +52,8 @@
     }
   },
   "dependencies": {},
-  "contributors": [
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ]
+  "contributors": [{
+    "name": "Markus Felten",
+    "email": "markus.felten@gmx.de"
+  }]
 }
