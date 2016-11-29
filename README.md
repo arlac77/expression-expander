@@ -7,6 +7,7 @@
 [![Code Climate](https://codeclimate.com/github/arlac77/expression-expander/badges/gpa.svg)](https://codeclimate.com/github/arlac77/expression-expander)
 [![Known Vulnerabilities](https://snyk.io/test/github/arlac77/expression-expander/badge.svg)](https://snyk.io/test/github/arlac77/expression-expander)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/expression-expander.svg?style=flat-square)](https://github.com/arlac77/expression-expander/issues)
+[![Stories in Ready](https://badge.waffle.io/arlac77/expression-expander.svg?label=ready&title=Ready)](http://waffle.io/arlac77/expression-expander)
 [![Dependency Status](https://david-dm.org/arlac77/expression-expander.svg)](https://david-dm.org/arlac77/expression-expander)
 [![devDependency Status](https://david-dm.org/arlac77/expression-expander/dev-status.svg)](https://david-dm.org/arlac77/expression-expander#info=devDependencies)
 [![docs](http://inch-ci.org/github/arlac77/expression-expander.svg?branch=master)](http://inch-ci.org/github/arlac77/expression-expander)
