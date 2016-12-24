@@ -17,7 +17,7 @@
     "url": "https://github.com/arlac77/expression-expander.git"
   },
   "engines": {
-    "node": ">=6.9.1"
+    "node": ">=6.9.2"
   },
   "keywords": [
     "expression",
@@ -37,7 +37,7 @@
     "markdown-doctest": "^0.9.1",
     "mocha": "^3.2.0",
     "rollup": "^0.38.0",
-    "semantic-release": "^6.3.3"
+    "semantic-release": "^6.3.5"
   },
   "license": "BSD-2-Clause",
   "bugs": {
