@@ -14,7 +14,7 @@ function _quote(str, expression) {
  *  - valueQuoter function to quote epanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
- *  - evaluate(expression,context) function to evaluate expressions
+ *  - evaluate(expression,context,path) function to evaluate expressions
  *    the default evaluation function simply does a lookup into the properties
  *  - keepUndefinedValues
  *    true: is expression resolves to undefind the original string will be used (with surrounding ${})
@@ -27,9 +27,6 @@ function createContext(options = {}) {
   const leftMarker = options.leftMarker || '${';
   const rightMarker = options.rightMarker || '}';
   const markerRegexp = new RegExp(options.markerRegexp || /\$\{([^\}]+)\}/, 'g');
-  const markerWholeRegexp = options.markerRegexp ? new RegExp('^' + options.markerRegexp + '$', '') :
-    /^\$\{([^\}]+)\}$/;
-
   const keepUndefinedValues = options.keepUndefinedValues === undefined ?
     false : options.keepUndefinedValues ? true : false;
 
@@ -74,21 +71,20 @@ function createContext(options = {}) {
     if (path.length >= maxNestingLevel) throw new Error(`Max nesting level ${maxNestingLevel} reached: ${object}`);
     if (typeof object === 'string' || object instanceof String) {
       let wholeValue;
-      object.replace(markerWholeRegexp, (match, key) => {
-        wholeValue = evaluate(key, context, path);
-        if (wholeValue === undefined) {
-          wholeValue = keepUndefinedValues ? leftMarker + key + rightMarker : '';
-        } else if (typeof wholeValue === 'string' || wholeValue instanceof String) {
-          wholeValue = valueQuoter(_expand(wholeValue, path));
-        }
-      });
-
-      if (wholeValue !== undefined) {
-        return wholeValue;
-      }
-
-      return object.replace(markerRegexp, (match, key) => {
+      const v = object.replace(markerRegexp, (match, key, offset, string) => {
         const value = evaluate(key, context, path);
+
+        if (string.length === key.length + leftMarker.length + rightMarker.length) {
+          wholeValue = value;
+          if (wholeValue === undefined) {
+            if (keepUndefinedValues) {
+              wholeValue = leftMarker + key + rightMarker;
+            }
+          } else if (typeof wholeValue === 'string' || wholeValue instanceof String) {
+            wholeValue = valueQuoter(_expand(wholeValue, path));
+          }
+          return '';
+        }
 
         if (value === undefined) {
           if (keepUndefinedValues) return leftMarker + key + rightMarker;
@@ -98,8 +94,11 @@ function createContext(options = {}) {
         if (typeof value === 'string' || value instanceof String) {
           return valueQuoter(_expand(value, path));
         }
+
         return value;
       });
+
+      return wholeValue !== undefined ? wholeValue : v;
     }
     if (object === undefined || object === null ||
       typeof object === 'number' || object instanceof Number ||
