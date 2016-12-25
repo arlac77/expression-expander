@@ -72,33 +72,22 @@ function createContext(options = {}) {
     if (typeof object === 'string' || object instanceof String) {
       let wholeValue;
       const v = object.replace(markerRegexp, (match, key, offset, string) => {
-        const value = evaluate(key, context, path);
-
-        if (string.length === key.length + leftMarker.length + rightMarker.length) {
-          wholeValue = value;
-          if (wholeValue === undefined) {
-            if (keepUndefinedValues) {
-              wholeValue = leftMarker + key + rightMarker;
-            }
-          } else if (typeof wholeValue === 'string' || wholeValue instanceof String) {
-            wholeValue = valueQuoter(_expand(wholeValue, path));
-          }
-          return '';
-        }
-
-        if (value === undefined) {
-          if (keepUndefinedValues) return leftMarker + key + rightMarker;
-          return '';
-        }
+        let value = evaluate(key, context, path);
 
         if (typeof value === 'string' || value instanceof String) {
-          return valueQuoter(_expand(value, path));
+          value = valueQuoter(_expand(value, path));
+        } else if (value === undefined) {
+          value = keepUndefinedValues ? leftMarker + key + rightMarker : '';
+        }
+        if (string.length === key.length + leftMarker.length + rightMarker.length) {
+          wholeValue = value;
+          return '';
         }
 
         return value;
       });
 
-      return wholeValue !== undefined ? wholeValue : v;
+      return wholeValue === undefined ? v : wholeValue;
     }
     if (object === undefined || object === null ||
       typeof object === 'number' || object instanceof Number ||
