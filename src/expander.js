@@ -109,7 +109,7 @@ function createContext(options = {}) {
 
     let newObject = {};
 
-    for (let key of Object.keys(object)) {
+    for (const key of Object.keys(object)) {
       const newKey = _expand(key, path);
       if (typeof newKey === 'string' || newKey instanceof String) {
         path.push({
