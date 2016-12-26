@@ -51,7 +51,12 @@ function createContext(options = {}) {
     expand(object, path = [{
       value: object
     }]) {
-      return _expand(object, path);
+      const promises = [];
+      const value = _expand(object, path, promises);
+      if (promises.length) {
+        return Promise.all(promises).then(() => value);
+      }
+      return value;
     }
   }, {
     /**
@@ -67,7 +72,7 @@ function createContext(options = {}) {
     }
   });
 
-  function _expand(object, path) {
+  function _expand(object, path, promises) {
     if (path.length >= maxNestingLevel) throw new Error(`Max nesting level ${maxNestingLevel} reached: ${object}`);
     if (typeof object === 'string' || object instanceof String) {
       let wholeValue;
@@ -75,7 +80,7 @@ function createContext(options = {}) {
         let value = evaluate(key, context, path);
 
         if (typeof value === 'string' || value instanceof String) {
-          value = valueQuoter(_expand(value, path));
+          value = valueQuoter(_expand(value, path, promises));
         } else if (value === undefined) {
           value = keepUndefinedValues ? leftMarker + key + rightMarker : '';
         }
@@ -101,7 +106,7 @@ function createContext(options = {}) {
           key: index,
           value: o
         });
-        const r = _expand(o, path);
+        const r = _expand(o, path, promises);
         path.pop();
         return r;
       });
@@ -110,13 +115,18 @@ function createContext(options = {}) {
     let newObject = {};
 
     for (const key of Object.keys(object)) {
-      const newKey = _expand(key, path);
+      const newKey = _expand(key, path, promises);
       if (typeof newKey === 'string' || newKey instanceof String) {
         path.push({
           key: key,
           value: object[key]
         });
-        newObject[newKey] = _expand(object[key], path);
+        const value = _expand(object[key], path, promises);
+        if (value instanceof Promise) {
+          promises.push(value);
+          value.then(v => newObject[newKey] = v);
+        }
+        newObject[newKey] = value;
         path.pop();
       } else {
         newObject = newKey;
