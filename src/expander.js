@@ -4,6 +4,10 @@
 
 'use strict';
 
+/**
+ * @module expression-expander
+ */
+
 function _quote(str, expression) {
   return str;
 }
@@ -22,7 +26,7 @@ function _quote(str, expression) {
  *
  * @return {ExpressionExpander} newly created expansion context
  */
-function createContext(options = {}) {
+export function createContext(options = {}) {
 
   const leftMarker = options.leftMarker || '${';
   const rightMarker = options.rightMarker || '}';
@@ -138,7 +142,3 @@ function createContext(options = {}) {
 
   return context;
 }
-
-export {
-  createContext
-};
