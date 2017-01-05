@@ -11,17 +11,52 @@ const chai = require('chai'),
 const expander = require('../dist/expander');
 
 describe('promise', () => {
-  const context = expander.createContext();
+  describe('object value', () => {
+    const context = expander.createContext();
 
-  context.properties = {
-    //thePromise: 'promise value'
-    thePromise: Promise.resolve('promise value')
-  };
+    context.properties = {
+      //thePromise: 'promise value'
+      thePromise: Promise.resolve('promise value')
+    };
 
-  const json = {
-    some: '${thePromise}'
-  };
+    const json = {
+      some: '${thePromise}'
+    };
 
-  it('can expand', () => context.expand(json)
-    .then(v => assert.equal(v.some, 'promise value')));
+    it('can expand', () => context.expand(json).then(v => assert.equal(v.some, 'promise value')));
+  });
+
+  describe('object key', () => {
+    const context = expander.createContext();
+
+    context.properties = {
+      thePromise: Promise.resolve({
+        value: 'the promise value'
+      })
+    };
+
+    const json = {
+      '${thePromise}': {}
+    };
+
+    it('can expand', () => context.expand(json).then(v => assert.deepEqual(v, {
+      value: 'the promise value'
+    })));
+  });
+
+  describe('array index', () => {
+    const context = expander.createContext();
+
+    context.properties = {
+      thePromise: Promise.resolve({
+        value: 'the promise value'
+      })
+    };
+
+    const json = [1, 2, '${thePromise}', 4];
+
+    it('can expand', () => context.expand(json).then(v => assert.deepEqual(v, [1, 2, {
+      value: 'the promise value'
+    }, 4])));
+  });
 });

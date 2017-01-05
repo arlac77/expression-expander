@@ -48,7 +48,7 @@ aValue
 
 * <a name="module_expression-expander.createContext"></a>
 
-## expression-expander.createContext(options) ⇒ <code>ExpressionExpander</code>
+## expression-expander.createContext([options]) ⇒ <code>ExpressionExpander</code>
 Creates a new expansion context
 
 **Kind**: static method of <code>[expression-expander](#module_expression-expander)</code>  
@@ -56,12 +56,12 @@ Creates a new expansion context
 
 | Param | Type | Description |
 | --- | --- | --- |
-| options | <code>object</code> | object with the following keys  - valueQuoter function to quote epanded values    by default no special quoting is done and the evaluated result will be direcly    inserted into the output string  - evaluate(expression,context,path) function to evaluate expressions    the default evaluation function simply does a lookup into the properties  - keepUndefinedValues    true: is expression resolves to undefind the original string will be used (with surrounding ${})  - maxNestingLevel max number of recursive calls to expand defaults to 20 |
+| [options] | <code>object</code> | object with the following keys  - valueQuoter function to quote epanded values    by default no special quoting is done and the evaluated result will be direcly    inserted into the output string  - evaluate(expression,context,path) function to evaluate expressions    the default evaluation function simply does a lookup into the properties  - keepUndefinedValues    true: is expression resolves to undefind the original string will be used (with surrounding ${})  - maxNestingLevel max number of recursive calls to expand defaults to 20 |
 
 
 * <a name="module_expression-expander..expand"></a>
 
-## expression-expander~expand(object, optional) ⇒ <code>any</code>
+## expression-expander~expand(object, [path]) ⇒ <code>any</code>
 Expands object
 
 **Kind**: inner method of <code>[expression-expander](#module_expression-expander)</code>  
@@ -70,7 +70,7 @@ Expands object
 | Param | Type | Description |
 | --- | --- | --- |
 | object | <code>any</code> | to expand |
-| optional | <code>array</code> | path describing the location in the to expanding data source |
+| [path] | <code>Array.&lt;object&gt;</code> | describing the location in the to expanding data source |
 
 
 * * *

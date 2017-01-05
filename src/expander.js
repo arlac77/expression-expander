@@ -14,7 +14,7 @@ function _quote(str, expression) {
 
 /**
  * Creates a new expansion context
- * @param {object} options object with the following keys
+ * @param {object} [options] object with the following keys
  *  - valueQuoter function to quote epanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
@@ -49,7 +49,7 @@ export function createContext(options = {}) {
     /**
      * Expands object
      * @param {any} object to expand
-     * @param {array} optional path describing the location in the to expanding data source
+     * @param {object[]} [path] describing the location in the to expanding data source
      * @return {any} expanded object
      */
     expand(object, path = [{
@@ -105,15 +105,25 @@ export function createContext(options = {}) {
     }
 
     if (Array.isArray(object)) {
-      return object.map((o, index) => {
+      const array = new Array(object.length);
+
+      for (let index = 0; index < object.length; index++) {
+        const o = object[index];
         path.push({
           key: index,
           value: o
         });
+
         const r = _expand(o, path, promises);
+        if (r instanceof Promise) {
+          promises.push(r);
+          r.then(f => array[index] = f);
+        }
+        array[index] = r;
         path.pop();
-        return r;
-      });
+      }
+
+      return array;
     }
 
     let newObject = {};
