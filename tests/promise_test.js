@@ -59,4 +59,16 @@ describe('promise', () => {
       value: 'the promise value'
     }, 4])));
   });
+
+  describe('string expression', () => {
+    const context = expander.createContext();
+
+    context.properties = {
+      thePromise: Promise.resolve('the promise value')
+    };
+
+    const json = 'A${thePromise}B';
+
+    it.only('can expand', () => context.expand(json).then(v => assert.equal(v, 'Athe promise valueB')));
+  });
 });

@@ -80,6 +80,8 @@ export function createContext(options = {}) {
     if (path.length >= maxNestingLevel) throw new Error(`Max nesting level ${maxNestingLevel} reached: ${object}`);
     if (typeof object === 'string' || object instanceof String) {
       let wholeValue;
+
+      const localPromises = [];
       const v = object.replace(markerRegexp, (match, key, offset, string) => {
         let value = evaluate(key, context, path);
 
@@ -93,10 +95,23 @@ export function createContext(options = {}) {
           return '';
         }
 
+        if (value instanceof Promise) {
+          localPromises.push(value);
+          return '${' + (localPromises.length - 1) + '}';
+        }
         return value;
       });
 
-      return wholeValue === undefined ? v : wholeValue;
+      if (wholeValue !== undefined) {
+        return wholeValue;
+      }
+
+      if (localPromises.length) {
+        return Promise.all(localPromises)
+          .then(all => v.replace(/\$\{(\d+)\}/, (match, key) => all[parseInt(key)]));
+      }
+
+      return v;
     }
     if (object === undefined || object === null ||
       typeof object === 'number' || object instanceof Number ||
