@@ -19,7 +19,7 @@ function _quote(str, expression) {
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
  *  - evaluate(expression,context,path) function to evaluate expressions
- *    the default evaluation function simply does a lookup into the properties
+ *    the default evaluation function does a lookup into the properties
  *  - keepUndefinedValues
  *    true: is expression resolves to undefind the original string will be used (with surrounding ${})
  *  - maxNestingLevel max number of recursive calls to expand defaults to 20
