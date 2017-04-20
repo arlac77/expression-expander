@@ -20,7 +20,7 @@
     "url": "https://github.com/arlac77/expression-expander.git"
   },
   "engines": {
-    "node": ">=7.8.0"
+    "node": ">=7.9.0"
   },
   "keywords": [
     "expression",
@@ -66,5 +66,10 @@
       "lcov"
     ],
     "report-dir": "./coverage"
+  },
+  "template": {
+    "repository": {
+      "url": "https://github.com/Kronos-Tools/npm-package-template.git"
+    }
   }
 }
