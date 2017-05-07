@@ -69,6 +69,6 @@ describe('promise', () => {
 
     const json = 'A${thePromise}B';
 
-    it.only('can expand', () => context.expand(json).then(v => assert.equal(v, 'Athe promise valueB')));
+    it('can expand', () => context.expand(json).then(v => assert.equal(v, 'Athe promise valueB')));
   });
 });

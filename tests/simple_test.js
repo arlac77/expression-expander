@@ -49,6 +49,9 @@ describe('expression', () => {
     it('expand undefined', () => assert.isUndefined(context.expand(undefined)));
     it('expand NaN', () => assert.isNaN(context.expand(NaN)));
 
+    it('expand false', () => assert.equal(false, context.expand(false)));
+    it('expand true', () => assert.equal(true, context.expand(true)));
+
     it('expand Date', () => {
       const d = new Date();
       assert.equal(context.expand(d), d);

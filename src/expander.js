@@ -113,7 +113,7 @@ export function createContext(options = {}) {
 
       return v;
     }
-    if (object === undefined || object === null ||
+    if (object === true || object === false || object === undefined || object === null ||
       typeof object === 'number' || object instanceof Number ||
       object instanceof Date) { // TODO: find a better way to identify special cases
       return object;
