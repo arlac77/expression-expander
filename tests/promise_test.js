@@ -36,7 +36,7 @@ test('promise object key', async t => {
     '${thePromise}': {}
   });
 
-  t.is(v, {
+  t.deepEqual(v, {
     value: 'the promise value'
   });
 });
@@ -52,7 +52,7 @@ test('promise array index', async t => {
 
   const v = await context.expand([1, 2, '${thePromise}', 4]);
 
-  t.is(v, [1, 2, {
+  t.deepEqual(v, [1, 2, {
     value: 'the promise value'
   }, 4]);
 });

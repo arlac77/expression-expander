@@ -29,7 +29,7 @@ test('expand special user defined string to object', t => {
 });
 
 test('expand special user defined expand with path', t => {
-  t.is(myContext().expand({
+  t.deepEqual(myContext().expand({
     key1: '${path}',
     key2: {
       key3: '${path}',

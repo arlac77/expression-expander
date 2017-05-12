@@ -19,7 +19,7 @@ test('plain expand string', t => {
     c: 'text'
   };
 
-  t.is(context.expand('${a}'), '1');
+  t.is(context.expand('${a}'), 1);
   t.is(context.expand('A${a}C'), 'A1C');
   t.is(context.expand('A${a}${b}C'), 'A12C');
   t.is(context.expand('A${c}C'), 'AtextC');
@@ -44,7 +44,7 @@ test('plain expand string transitive', t => {
     b: 2
   };
 
-  t.is(context.expand('${a}'), '2');
+  t.is(context.expand('${a}'), 2);
 });
 
 test('expand undefined', t => {
@@ -56,7 +56,7 @@ test('expand null', t => {
 });
 
 test('expand NaN', t => {
-  t.is(createContext().expand(NaN), NaN);
+  t.deepEqual(createContext().expand(NaN), NaN);
 });
 
 test('expand false', t => {
@@ -67,7 +67,7 @@ test('expand true', t => {
   t.is(createContext().expand(true), true);
 });
 
-test('expand Date', () => {
+test('expand Date', t => {
   const d = new Date();
   t.is(createContext().expand(d), d);
 });
@@ -91,9 +91,9 @@ test('expand object', t => {
     '${c}': 4
   });
 
-  t.is(expanded.b, '3');
-  t.is(expanded.c, '1');
-  t.is(expanded.nc, '4');
+  t.is(expanded.b, 3);
+  t.is(expanded.c, 1);
+  t.is(expanded.nc, 4);
 });
 
 test('expand array', t => {
@@ -101,64 +101,62 @@ test('expand array', t => {
 
   context.properties = {
     a: 1,
-    b: 2
+    b: '2'
   };
 
   const expanded = context.expand([0, '${a}', '${b}']);
 
-  t.is(expanded[0], '0');
-  t.is(expanded[1], '1');
+  t.is(expanded[0], 0);
+  t.is(expanded[1], 1);
   t.is(expanded[2], '2');
 });
 
-/*
-describe('with valueQuoter', () => {
-  let context = expander.createContext({
-    valueQuoter: function (o) {
+test('expand string with quoter', t => {
+  const context = createContext({
+    valueQuoter(o) {
       return '<' + o + '>';
     }
   });
 
-  it('string expand', () => {
-    context.properties = {
-      a: '1'
-    };
+  context.properties = {
+    a: '1'
+  };
 
-    //console.log(`${context.expand('${a}')}`);
-    assert.equal(context.expand('${a}'), '<1>');
-  });
+  t.is(context.expand('${a}'), '<1>');
 });
 
-describe('circular transitivity', () => {
-  const context = expander.createContext();
+test('expand circular transitivity with quoter', t => {
+  const context = createContext({
+    valueQuoter(o) {
+      return '<' + o + '>';
+    }
+  });
 
   context.properties = {
     a: '${b}',
     b: '${a}'
   };
-  it('string expand should fail', () => {
-    assert.throws(() => context.expand('${a}'));
+
+  t.throws(() => {
+    context.expand('${a}')
   });
 });
 
+test('expand special marker', t => {
+  const context = createContext({
+    leftMarker: '{{',
+    rightMarker: '}}',
+    markerRegexp: '\{\{([^\}]+)\}\}'
+  });
 
-describe('special marker', () => {
-const context = expander.createContext({
-  leftMarker: '{{',
-  rightMarker: '}}',
-  markerRegexp: '\{\{([^\}]+)\}\}'
-});
-
-it('expand string', () => {
   context.properties = {
     a: 1,
     b: 2,
     c: 'text'
   };
 
-  assert.equal(context.expand('{{a}}'), '1');
-  assert.equal(context.expand('A{{a}}C'), 'A1C');
-  assert.equal(context.expand('A{{a}}{{b}}C'), 'A12C');
-  assert.equal(context.expand('A{{c}}C'), 'AtextC');
-
-*/
+  t.is(context.expand('{{a}}'), 1);
+  t.is(context.expand('A{{a}}C'), 'A1C');
+  t.is(context.expand('A{{a}}{{b}}C'), 'A12C');
+  t.is(context.expand('A{{c}}C'), 'AtextC');
+});
