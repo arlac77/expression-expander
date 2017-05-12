@@ -1,53 +1,78 @@
-/* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
 'use strict';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
+import test from 'ava';
 
-const expander = require('../dist/expander');
+import {
+  createContext
+}
+from '../src/expander';
 
-describe('expression', () => {
-  describe('complex', () => {
-    const context = expander.createContext();
-    context.properties = {
-      moreThanOne: {
-        a: 1,
-        b: 2
-      }
-    };
+test('expand string to object', t => {
+  const context = createContext();
 
-    it('expand string to object', () => {
-      const expanded = context.expand("${moreThanOne}");
-      assert.equal(expanded.a, 1);
-      assert.equal(expanded.b, 2);
-    });
+  context.properties = {
+    moreThanOne: {
+      a: 1,
+      b: 2
+    }
+  };
 
-    it('expand string in array to object', () => {
-      const expanded = context.expand(["${moreThanOne}", 2, 3]);
-      assert.equal(expanded[0].a, 1);
-      assert.equal(expanded[0].b, 2);
-      assert.equal(expanded[1], 2);
-    });
+  const expanded = context.expand('${moreThanOne}');
+  t.is(expanded.a, 1);
+  t.is(expanded.b, 2);
+});
 
-    it('expand object key to object', () => {
-      const expanded = context.expand({
-        "${moreThanOne}": {}
-      });
-      //console.log(`expanded: ${JSON.stringify(expanded)}`);
-      assert.equal(expanded.a, 1);
-      assert.equal(expanded.b, 2);
-    });
+test('expand string in array to object', t => {
+  const context = createContext();
 
-    it('expand object value to object', () => {
-      const expanded = context.expand({
-        "aKey": "${moreThanOne}"
-      });
-      assert.equal(expanded.aKey.a, 1);
-      assert.equal(expanded.aKey.b, 2);
-    });
+  context.properties = {
+    moreThanOne: {
+      a: 1,
+      b: 2
+    }
+  };
+
+  const expanded = context.expand(['${moreThanOne}', 2, 3]);
+
+  t.is(expanded[0].a, 1);
+  t.is(expanded[0].b, 2);
+  t.is(expanded[1], 2);
+});
+
+test('expand object key to object', t => {
+  const context = createContext();
+
+  context.properties = {
+    moreThanOne: {
+      a: 1,
+      b: 2
+    }
+  };
+
+  const expanded = context.expand({
+    '${moreThanOne}': {}
   });
+
+  t.is(expanded.a, 1);
+  t.is(expanded.b, 2);
+});
+
+test('expand object value to object', t => {
+  const context = createContext();
+
+  context.properties = {
+    moreThanOne: {
+      a: 1,
+      b: 2
+    }
+  };
+
+  const expanded = context.expand({
+    aKey: '${moreThanOne}'
+  });
+
+  t.is(expanded.aKey.a, 1);
+  t.is(expanded.aKey.b, 2);
 });

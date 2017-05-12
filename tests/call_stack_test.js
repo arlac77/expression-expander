@@ -1,17 +1,16 @@
-/* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
 'use strict';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
+import test from 'ava';
 
-const expander = require('../dist/expander');
+import {
+  createContext
+}
+from '../src/expander';
 
-describe('unknown value', () => {
-  const context = expander.createContext({
+test('unknown value', t => {
+  const context = createContext({
     keepUndefinedValues: true
   });
 
@@ -19,5 +18,5 @@ describe('unknown value', () => {
     key: '${unknown}'
   };
 
-  it('can expand', () => assert.equal(context.expand(json).key, '${unknown}'));
+  t.is(context.expand(json).key, '${unknown}');
 });

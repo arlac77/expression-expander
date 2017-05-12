@@ -1,74 +1,70 @@
-/* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
 'use strict';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
+import test from 'ava';
 
-const expander = require('../dist/expander');
+import {
+  createContext
+}
+from '../src/expander';
 
-describe('promise', () => {
-  describe('object value', () => {
-    const context = expander.createContext();
+test('promise object value', async t => {
+  const context = createContext();
 
-    context.properties = {
-      //thePromise: 'promise value'
-      thePromise: Promise.resolve('promise value')
-    };
+  context.properties = {
+    thePromise: Promise.resolve('promise value')
+  };
 
-    const json = {
-      some: '${thePromise}'
-    };
-
-    it('can expand', () => context.expand(json).then(v => assert.equal(v.some, 'promise value')));
+  const v = await context.expand({
+    some: '${thePromise}'
   });
 
-  describe('object key', () => {
-    const context = expander.createContext();
+  t.is(v.some, 'promise value');
+});
 
-    context.properties = {
-      thePromise: Promise.resolve({
-        value: 'the promise value'
-      })
-    };
+test('promise object key', async t => {
+  const context = createContext();
 
-    const json = {
-      '${thePromise}': {}
-    };
-
-    it('can expand', () => context.expand(json).then(v => assert.deepEqual(v, {
+  context.properties = {
+    thePromise: Promise.resolve({
       value: 'the promise value'
-    })));
+    })
+  };
+
+  const v = await context.expand({
+    '${thePromise}': {}
   });
 
-  describe('array index', () => {
-    const context = expander.createContext();
+  t.is(v, {
+    value: 'the promise value'
+  });
+});
 
-    context.properties = {
-      thePromise: Promise.resolve({
-        value: 'the promise value'
-      })
-    };
+test('promise array index', async t => {
+  const context = createContext();
 
-    const json = [1, 2, '${thePromise}', 4];
-
-    it('can expand', () => context.expand(json).then(v => assert.deepEqual(v, [1, 2, {
+  context.properties = {
+    thePromise: Promise.resolve({
       value: 'the promise value'
-    }, 4])));
-  });
+    })
+  };
 
-  describe('string expression', () => {
-    const context = expander.createContext();
+  const v = await context.expand([1, 2, '${thePromise}', 4]);
 
-    context.properties = {
-      thePromise: Promise.resolve('the promise value')
-    };
+  t.is(v, [1, 2, {
+    value: 'the promise value'
+  }, 4]);
+});
 
-    const json = 'A${thePromise}B';
+test('promise string expression', async t => {
+  const context = createContext();
 
-    it('can expand', () => context.expand(json).then(v => assert.equal(v, 'Athe promise valueB')));
-  });
+  context.properties = {
+    thePromise: Promise.resolve('the promise value')
+  };
+
+  const v = await context.expand('A${thePromise}B');
+
+  t.is(v, 'Athe promise valueB');
 });
