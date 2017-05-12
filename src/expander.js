@@ -8,7 +8,7 @@
  * @module expression-expander
  */
 
-function _quote(str, expression) {
+function _quote(str) {
   return str;
 }
 
@@ -27,12 +27,11 @@ function _quote(str, expression) {
  * @return {ExpressionExpander} newly created expansion context
  */
 export function createContext(options = {}) {
-
   const leftMarker = options.leftMarker || '${';
   const rightMarker = options.rightMarker || '}';
-  const markerRegexp = new RegExp(options.markerRegexp || /\$\{([^\}]+)\}/, 'g');
+  const markerRegexp = new RegExp(options.markerRegexp || /\${([^}]+)}/, 'g');
   const keepUndefinedValues = options.keepUndefinedValues === undefined ?
-    false : options.keepUndefinedValues ? true : false;
+    false : options.keepUndefinedValues;
 
   const valueQuoter = options.valueQuoter || _quote;
   const maxNestingLevel = options.maxNestingLevel || 20;
@@ -57,7 +56,7 @@ export function createContext(options = {}) {
     }]) {
       const promises = [];
       const value = _expand(object, path, promises);
-      if (promises.length) {
+      if (promises.length !== 0) {
         return Promise.all(promises).then(() => value);
       }
       return value;
@@ -77,7 +76,10 @@ export function createContext(options = {}) {
   });
 
   function _expand(object, path, promises) {
-    if (path.length >= maxNestingLevel) throw new Error(`Max nesting level ${maxNestingLevel} reached: ${object}`);
+    if (path.length >= maxNestingLevel) {
+      throw new Error(`Max nesting level ${maxNestingLevel} reached: ${object}`);
+    }
+
     if (typeof object === 'string' || object instanceof String) {
       let wholeValue;
 
@@ -106,9 +108,9 @@ export function createContext(options = {}) {
         return wholeValue;
       }
 
-      if (localPromises.length) {
+      if (localPromises.length !== 0) {
         return Promise.all(localPromises)
-          .then(all => v.replace(/\$\{(\d+)\}/, (match, key) => all[parseInt(key)]));
+          .then(all => v.replace(/\$\{(\d+)\}/, (match, key) => all[parseInt(key, 10)]));
       }
 
       return v;
@@ -132,7 +134,10 @@ export function createContext(options = {}) {
         const r = _expand(o, path, promises);
         if (r instanceof Promise) {
           promises.push(r);
-          r.then(f => array[index] = f);
+          r.then(f => {
+            array[index] = f;
+            return f;
+          });
         }
         array[index] = r;
         path.pop();
@@ -147,13 +152,16 @@ export function createContext(options = {}) {
       const newKey = _expand(key, path, promises);
       if (typeof newKey === 'string' || newKey instanceof String) {
         path.push({
-          key: key,
+          key,
           value: object[key]
         });
         const value = _expand(object[key], path, promises);
         if (value instanceof Promise) {
           promises.push(value);
-          value.then(v => newObject[newKey] = v);
+          value.then(v => {
+            newObject[newKey] = v;
+            return v;
+          });
         }
         newObject[newKey] = value;
         path.pop();

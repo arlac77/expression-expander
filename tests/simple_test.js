@@ -9,7 +9,6 @@ import {
 }
 from '../src/expander';
 
-
 test('plain expand string', t => {
   const context = createContext();
 
@@ -146,7 +145,7 @@ test('expand special marker', t => {
   const context = createContext({
     leftMarker: '{{',
     rightMarker: '}}',
-    markerRegexp: '\{\{([^\}]+)\}\}'
+    markerRegexp: '{{([^}]+)}}'
   });
 
   context.properties = {

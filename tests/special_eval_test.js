@@ -12,7 +12,7 @@ from '../src/expander';
 function myContext() {
   return createContext({
     evaluate(expression, context, path) {
-      const r = expression.match(/(\d+)\s*([\+\-\*\/])\s*(\d+)/);
+      const r = expression.match(/(\d+)\s*([+\-*\/])\s*(\d+)/);
       if (r) {
         return r[1] * r[3];
       }
