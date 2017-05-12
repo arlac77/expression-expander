@@ -138,7 +138,7 @@ test('expand circular transitivity with quoter', t => {
   };
 
   t.throws(() => {
-    context.expand('${a}')
+    context.expand('${a}');
   });
 });
 
