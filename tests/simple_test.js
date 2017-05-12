@@ -1,150 +1,162 @@
-/* global describe, it, xit */
 /* jslint node: true, esnext: true */
 
 'use strict';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should();
+import test from 'ava';
 
-const expander = require('../dist/expander');
+import {
+  createContext
+}
+from '../src/expander';
 
 
+test('plain expand string', t => {
+  const context = createContext();
 
-describe('expression', () => {
-  describe('plain', () => {
-    const context = expander.createContext();
+  context.properties = {
+    a: 1,
+    b: 2,
+    c: 'text'
+  };
 
-    it('expand string', () => {
-      context.properties = {
-        a: 1,
-        b: 2,
-        c: 'text'
-      };
+  t.is(context.expand('${a}'), 1);
+  t.is(context.expand('A${a}C'), 'A1C');
+  t.is(context.expand('A${a}${b}C'), 'A12C');
+  t.is(context.expand('A${c}C'), 'AtextC');
+});
 
-      assert.equal(context.expand('${a}'), '1');
-      assert.equal(context.expand('A${a}C'), 'A1C');
-      assert.equal(context.expand('A${a}${b}C'), 'A12C');
-      assert.equal(context.expand('A${c}C'), 'AtextC');
-    });
+test('plain expand string with undefined value', t => {
+  const context = createContext();
 
-    it('expand string with undefined value', function () {
-      context.properties = {
-        b: 2
-      };
+  context.properties = {
+    b: 2
+  };
 
-      assert.equal(context.expand('B${a}A'), 'BA');
-      assert.equal(context.expand('${a}'), '');
-    });
+  t.is(context.expand('B${a}A'), 'BA');
+  t.is(context.expand('${a}'), '');
+});
 
-    it('expand string transitive', function () {
-      context.properties = {
-        a: '${b}',
-        b: 2
-      };
-      assert.equal(context.expand('${a}'), '2');
-    });
+test('plain expand string transitive', t => {
+  const context = createContext();
 
-    it('expand undefined', () => assert.isUndefined(context.expand(undefined)));
-    it('expand NaN', () => assert.isNaN(context.expand(NaN)));
+  context.properties = {
+    a: '${b}',
+    b: 2
+  };
 
-    it('expand false', () => assert.equal(false, context.expand(false)));
-    it('expand true', () => assert.equal(true, context.expand(true)));
+  t.is(context.expand('${a}'), 2);
+});
 
-    it('expand Date', () => {
-      const d = new Date();
-      assert.equal(context.expand(d), d);
-    });
+test('expand undefined', t => {
+  t.is(createContext().expand(undefined), undefined);
+});
 
-    it('expand null', () => assert.isNull(context.expand(null)));
+test('expand null', t => {
+  t.is(createContext().expand(null), null);
+});
 
-    it('expand undefined value', () => {
-      const context = expander.createContext();
-      assert.equal(context.expand('${a}'), '');
-    });
+test('expand NaN', t => {
+  t.deepEqual(createContext().expand(NaN), NaN);
+});
 
-    it('expand object', () => {
-      context.properties = {
-        a: 1,
-        b: 2,
-        c: 'nc'
-      };
+test('expand false', t => {
+  t.is(createContext().expand(false), false);
+});
 
-      const expanded = context.expand({
-        b: 3,
-        c: '${a}',
-        '${c}': 4
-      });
+test('expand true', t => {
+  t.is(createContext().expand(true), true);
+});
 
-      assert.equal(expanded.b, '3');
-      assert.equal(expanded.c, '1');
-      assert.equal(expanded.nc, '4');
-    });
+test('expand Date', t => {
+  const d = new Date();
+  t.is(createContext().expand(d), d);
+});
 
-    it('expand array', () => {
-      context.properties = {
-        a: 1,
-        b: 2
-      };
+test('expand undefined value', t => {
+  t.is(createContext().expand('${a}'), '');
+});
 
-      const expanded = context.expand([0, '${a}', '${b}']);
+test('expand object', t => {
+  const context = createContext();
 
-      assert.equal(expanded[0], '0');
-      assert.equal(expanded[1], '1');
-      assert.equal(expanded[2], '2');
-    });
+  context.properties = {
+    a: 1,
+    b: 2,
+    c: 'nc'
+  };
+
+  const expanded = context.expand({
+    b: 3,
+    c: '${a}',
+    '${c}': 4
   });
 
-  describe('with valueQuoter', () => {
-    let context = expander.createContext({
-      valueQuoter: function (o) {
-        return '<' + o + '>';
-      }
-    });
+  t.is(expanded.b, 3);
+  t.is(expanded.c, 1);
+  t.is(expanded.nc, 4);
+});
 
-    it('string expand', () => {
-      context.properties = {
-        a: '1'
-      };
+test('expand array', t => {
+  const context = createContext();
 
-      //console.log(`${context.expand('${a}')}`);
-      assert.equal(context.expand('${a}'), '<1>');
-    });
+  context.properties = {
+    a: 1,
+    b: '2'
+  };
+
+  const expanded = context.expand([0, '${a}', '${b}']);
+
+  t.is(expanded[0], 0);
+  t.is(expanded[1], 1);
+  t.is(expanded[2], '2');
+});
+
+test('expand string with quoter', t => {
+  const context = createContext({
+    valueQuoter(o) {
+      return '<' + o + '>';
+    }
   });
 
-  describe('circular transitivity', () => {
-    const context = expander.createContext();
+  context.properties = {
+    a: '1'
+  };
 
-    context.properties = {
-      a: '${b}',
-      b: '${a}'
-    };
-    it('string expand should fail', () => {
-      assert.throws(() => context.expand('${a}'));
-    });
+  t.is(context.expand('${a}'), '<1>');
+});
+
+test('expand circular transitivity with quoter', t => {
+  const context = createContext({
+    valueQuoter(o) {
+      return '<' + o + '>';
+    }
   });
 
+  context.properties = {
+    a: '${b}',
+    b: '${a}'
+  };
 
-  describe('special marker', () => {
-    const context = expander.createContext({
-      leftMarker: '{{',
-      rightMarker: '}}',
-      markerRegexp: '\{\{([^\}]+)\}\}'
-    });
+  t.throws(() => {
+    context.expand('${a}');
+  });
+});
 
-    it('expand string', () => {
-      context.properties = {
-        a: 1,
-        b: 2,
-        c: 'text'
-      };
-
-      assert.equal(context.expand('{{a}}'), '1');
-      assert.equal(context.expand('A{{a}}C'), 'A1C');
-      assert.equal(context.expand('A{{a}}{{b}}C'), 'A12C');
-      assert.equal(context.expand('A{{c}}C'), 'AtextC');
-    });
+test('expand special marker', t => {
+  const context = createContext({
+    leftMarker: '{{',
+    rightMarker: '}}',
+    markerRegexp: '\{\{([^\}]+)\}\}'
   });
 
+  context.properties = {
+    a: 1,
+    b: 2,
+    c: 'text'
+  };
+
+  t.is(context.expand('{{a}}'), 1);
+  t.is(context.expand('A{{a}}C'), 'A1C');
+  t.is(context.expand('A{{a}}{{b}}C'), 'A12C');
+  t.is(context.expand('A{{c}}C'), 'AtextC');
 });
