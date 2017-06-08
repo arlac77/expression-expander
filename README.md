@@ -52,7 +52,7 @@ aValue
 ## expression-expander~createContext([options]) ⇒ <code>ExpressionExpander</code>
 Creates a new expansion context
 
-**Kind**: inner method of [<code>expression-expander</code>](#module_expression-expander)  
+**Kind**: inner method of <code>[expression-expander](#module_expression-expander)</code>  
 **Returns**: <code>ExpressionExpander</code> - newly created expansion context  
 
 | Param | Type | Description |
@@ -65,7 +65,7 @@ Creates a new expansion context
 ## expression-expander~expand(object, [path]) ⇒ <code>any</code>
 Expands object
 
-**Kind**: inner method of [<code>expression-expander</code>](#module_expression-expander)  
+**Kind**: inner method of <code>[expression-expander](#module_expression-expander)</code>  
 **Returns**: <code>any</code> - expanded object  
 
 | Param | Type | Description |
