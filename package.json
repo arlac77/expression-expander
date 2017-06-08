@@ -31,20 +31,20 @@
     "verifyRelease": "cracks"
   },
   "devDependencies": {
+    "ava": "^0.19.1",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-stage-3": "^6.24.1",
     "cracks": "3.1.2",
     "cz-conventional-changelog": "^2.0.0",
+    "jsdoc-babel": "^0.3.0",
     "jsdoc-to-markdown": "^3.0.0",
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.0.2",
     "rollup": "^0.42.0",
-    "semantic-release": "^6.3.6",
-    "jsdoc-babel": "^0.3.0",
-    "ava": "^0.19.1",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-multi-entry": "^2.0.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "xo": "^0.19.0",
-    "babel-preset-stage-3": "^6.24.1"
+    "semantic-release": "^6.3.6",
+    "xo": "^0.19.0"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -57,10 +57,12 @@
     }
   },
   "dependencies": {},
-  "contributors": [{
-    "name": "Markus Felten",
-    "email": "markus.felten@gmx.de"
-  }],
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
   "nyc": {
     "include": [
       "dist/**/*.js"
