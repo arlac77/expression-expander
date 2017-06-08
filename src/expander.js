@@ -1,9 +1,3 @@
-/* jslint node: true, esnext: true */
-/* eslint-env es6 */
-/* eslint valid-jsdoc: 2 */
-
-'use strict';
-
 /**
  * @module expression-expander
  */
