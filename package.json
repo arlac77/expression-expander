@@ -3,7 +3,6 @@
   "version": "0.0.0-semantic-release",
   "description": "expands expressions in object graphs",
   "main": "dist/expander.js",
-  "jsnext:main": "src/expander.js",
   "module": "src/expander.js",
   "scripts": {
     "cover": "nyc ava",
@@ -32,8 +31,6 @@
   },
   "devDependencies": {
     "ava": "^0.19.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "babel-preset-stage-3": "^6.24.1",
     "cracks": "3.1.2",
     "jsdoc-babel": "^0.3.0",
     "jsdoc-to-markdown": "^3.0.0",
@@ -59,12 +56,13 @@
   ],
   "nyc": {
     "include": [
-      "dist/**/*.js"
+      "build/test-bundle.js",
+      "src/**/*.js"
     ],
     "reporter": [
       "lcov"
     ],
-    "report-dir": "./coverage"
+    "report-dir": "./build/coverage"
   },
   "template": {
     "repository": {
@@ -75,8 +73,11 @@
     "space": true
   },
   "ava": {
+    "babel": {
+      "presets": []
+    },
     "files": [
-      "tests/build/bundle.js"
+      "build/test-bundle.js"
     ],
     "require": [
       "babel-register"
