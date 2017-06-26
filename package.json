@@ -3,24 +3,23 @@
   "version": "0.0.0-semantic-release",
   "description": "expands expressions in object graphs",
   "main": "dist/expander.js",
-  "jsnext:main": "src/expander.js",
   "module": "src/expander.js",
   "scripts": {
     "cover": "nyc ava",
     "test": "ava",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
-    "prepublish": "rollup --output=dist/expander.js -c -- src/expander.js",
-    "pretest": "rollup -c rollup.config.test.js",
+    "prepublish": "rollup -c -- src/expander.js",
+    "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepublish && markdown-doctest",
-    "precover": "rollup -c rollup.config.test.js"
+    "precover": "rollup -c tests/rollup.config.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/arlac77/expression-expander.git"
   },
   "engines": {
-    "node": ">=8.1.0"
+    "node": ">=8.1.2"
   },
   "keywords": [
     "expression",
@@ -32,15 +31,12 @@
   },
   "devDependencies": {
     "ava": "^0.19.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "babel-preset-stage-3": "^6.24.1",
     "cracks": "3.1.2",
-    "cz-conventional-changelog": "^2.0.0",
     "jsdoc-babel": "^0.3.0",
     "jsdoc-to-markdown": "^3.0.0",
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.0.3",
-    "rollup": "^0.42.0",
+    "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-multi-entry": "^2.0.1",
     "semantic-release": "^6.3.6",
@@ -51,11 +47,6 @@
     "url": "https://github.com/arlac77/expression-expander/issues"
   },
   "homepage": "https://github.com/arlac77/expression-expander#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "dependencies": {},
   "contributors": [
     {
@@ -65,12 +56,13 @@
   ],
   "nyc": {
     "include": [
-      "dist/**/*.js"
+      "build/test-bundle.js",
+      "src/**/*.js"
     ],
     "reporter": [
       "lcov"
     ],
-    "report-dir": "./coverage"
+    "report-dir": "./build/coverage"
   },
   "template": {
     "repository": {
@@ -81,8 +73,11 @@
     "space": true
   },
   "ava": {
+    "babel": {
+      "presets": []
+    },
     "files": [
-      "tests/build/bundle.js"
+      "build/test-bundle.js"
     ],
     "require": [
       "babel-register"
