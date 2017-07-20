@@ -1,49 +1,41 @@
 {
   "name": "expression-expander",
-  "version": "0.0.0-semantic-release",
-  "description": "expands expressions in object graphs",
-  "main": "dist/expander.js",
-  "module": "src/expander.js",
   "scripts": {
     "cover": "nyc ava",
+    "precover": "rollup -c tests/rollup.config.js",
     "test": "ava",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
-    "precover": "rollup -c tests/rollup.config.js",
-    "prepare": "rollup -c -- src/expander.js"
+    "prepare": "rollup -c -- {{module}}",
+    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arlac77/expression-expander.git"
+  "devDependencies": {
+    "jsdoc-to-markdown": "^3.0.0",
+    "jsdoc-babel": "^0.3.0",
+    "markdown-doctest": "^0.9.1",
+    "nyc": "^11.0.3",
+    "ava": "^0.21.0",
+    "rollup": "^0.45.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-multi-entry": "^2.0.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "semantic-release": "^6.3.6",
+    "xo": "^0.19.0"
   },
   "engines": {
     "node": ">=8.2.0"
   },
+  "version": "0.0.0-semantic-release",
+  "description": "{{description}}",
+  "main": "dist/index.js",
   "keywords": [
-    "expression",
-    "property",
-    "evaluate"
+    "npm-package-template"
   ],
-  "release": {
-    "verifyRelease": "cracks"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arlac77/expression-expander.git"
   },
-  "devDependencies": {
-    "ava": "^0.21.0",
-    "cracks": "3.1.2",
-    "jsdoc-babel": "^0.3.0",
-    "jsdoc-to-markdown": "^3.0.0",
-    "markdown-doctest": "^0.9.1",
-    "nyc": "^11.0.3",
-    "rollup": "^0.45.2",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-multi-entry": "^2.0.1",
-    "semantic-release": "^6.3.6",
-    "xo": "^0.19.0",
-    "babel-preset-stage-3": "^6.24.1"
-  },
-  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/arlac77/expression-expander/issues"
   },
@@ -55,10 +47,24 @@
       "email": "markus.felten@gmx.de"
     }
   ],
+  "license": "BSD-2-Clause",
+  "xo": {
+    "space": true
+  },
+  "ava": {
+    "files": [
+      "build/test-bundle.js"
+    ],
+    "presets": [
+      "stage-3"
+    ],
+    "require": [
+      "babel-register"
+    ]
+  },
   "nyc": {
     "include": [
-      "build/test-bundle.js",
-      "src/**/*.js"
+      "build/test-bundle.js"
     ],
     "reporter": [
       "lcov"
@@ -69,19 +75,5 @@
     "repository": {
       "url": "https://github.com/arlac77/npm-package-template.git"
     }
-  },
-  "xo": {
-    "space": true
-  },
-  "ava": {
-    "babel": {
-      "presets": []
-    },
-    "files": [
-      "build/test-bundle.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
   }
 }
