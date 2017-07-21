@@ -19,7 +19,7 @@
     "url": "https://github.com/arlac77/expression-expander.git"
   },
   "engines": {
-    "node": ">=8.2.0"
+    "node": ">=8.2.1"
   },
   "keywords": [
     "expression",
