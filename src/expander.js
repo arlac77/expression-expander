@@ -8,15 +8,14 @@ function _quote(str) {
 
 /**
  * Creates a new expansion context
- * @param {object} [options] object with the following keys
- *  - valueQuoter function to quote epanded values
+ * @param [options] {object}  object with the following keys
+ * @param [options.valueQuoter] {function} - to quote expanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
- *  - evaluate(expression,context,path) function to evaluate expressions
+ * @param [options.evaluate] {function} - evaluate(expression,context,path) function to evaluate expressions
  *    the default evaluation function does a lookup into the properties
- *  - keepUndefinedValues
- *    true: is expression resolves to undefind the original string will be used (with surrounding ${})
- *  - maxNestingLevel max number of recursive calls to expand defaults to 20
+ * @param [options.keepUndefinedValues] {bool} - true: is expression resolves to undefind the original string will be used (with surrounding ${})
+ * @param [options.maxNestingLevel] {number} - max number of recursive calls to expand defaults to 20 
  *
  * @return {ExpressionExpander} newly created expansion context
  */
@@ -44,8 +43,8 @@ export function createContext(options = {}) {
     {
       /**
      * Expands object
-     * @param {any} object to expand
-     * @param {object[]} [path] describing the location in the to expanding data source
+     * @param object {any} to expand
+     * @param [path] {object[]} describing the location in the to expanding data source
      * @return {any} expanded object
      */
       expand(

@@ -57,7 +57,11 @@ Creates a new expansion context
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [options] | <code>object</code> | object with the following keys  - valueQuoter function to quote epanded values    by default no special quoting is done and the evaluated result will be direcly    inserted into the output string  - evaluate(expression,context,path) function to evaluate expressions    the default evaluation function does a lookup into the properties  - keepUndefinedValues    true: is expression resolves to undefind the original string will be used (with surrounding ${})  - maxNestingLevel max number of recursive calls to expand defaults to 20 |
+| [options] | <code>object</code> | object with the following keys |
+| [options.valueQuoter] | <code>function</code> | to quote expanded values    by default no special quoting is done and the evaluated result will be direcly    inserted into the output string |
+| [options.evaluate] | <code>function</code> | evaluate(expression,context,path) function to evaluate expressions    the default evaluation function does a lookup into the properties |
+| [options.keepUndefinedValues] | <code>bool</code> | true: is expression resolves to undefind the original string will be used (with surrounding ${}) |
+| [options.maxNestingLevel] | <code>number</code> | max number of recursive calls to expand defaults to 20 |
 
 
 * <a name="module_expression-expander..expand"></a>
