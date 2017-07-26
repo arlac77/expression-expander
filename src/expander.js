@@ -24,8 +24,10 @@ export function createContext(options = {}) {
   const leftMarker = options.leftMarker || '${';
   const rightMarker = options.rightMarker || '}';
   const markerRegexp = new RegExp(options.markerRegexp || /\${([^}]+)}/, 'g');
-  const keepUndefinedValues = options.keepUndefinedValues === undefined ?
-    false : options.keepUndefinedValues;
+  const keepUndefinedValues =
+    options.keepUndefinedValues === undefined
+      ? false
+      : options.keepUndefinedValues;
 
   const valueQuoter = options.valueQuoter || _quote;
   const maxNestingLevel = options.maxNestingLevel || 20;
@@ -38,40 +40,50 @@ export function createContext(options = {}) {
 
   const evaluate = options.evaluate || _evaluate;
 
-  const context = Object.create({
-    /**
+  const context = Object.create(
+    {
+      /**
      * Expands object
      * @param {any} object to expand
      * @param {object[]} [path] describing the location in the to expanding data source
      * @return {any} expanded object
      */
-    expand(object, path = [{
-      value: object
-    }]) {
-      const promises = [];
-      const value = _expand(object, path, promises);
-      if (promises.length !== 0) {
-        return Promise.all(promises).then(() => value);
+      expand(
+        object,
+        path = [
+          {
+            value: object
+          }
+        ]
+      ) {
+        const promises = [];
+        const value = _expand(object, path, promises);
+        if (promises.length !== 0) {
+          return Promise.all(promises).then(() => value);
+        }
+        return value;
       }
-      return value;
-    }
-  }, {
-    /**
+    },
+    {
+      /**
      * Properties used for the default expander implementation
      */
-    properties: {
-      get() {
+      properties: {
+        get() {
           return properties;
         },
         set(newProperties) {
           properties = newProperties;
         }
+      }
     }
-  });
+  );
 
   function _expand(object, path, promises) {
     if (path.length >= maxNestingLevel) {
-      throw new Error(`Max nesting level ${maxNestingLevel} reached: ${object}`);
+      throw new Error(
+        `Max nesting level ${maxNestingLevel} reached: ${object}`
+      );
     }
 
     if (typeof object === 'string' || object instanceof String) {
@@ -86,7 +98,10 @@ export function createContext(options = {}) {
         } else if (value === undefined) {
           value = keepUndefinedValues ? leftMarker + key + rightMarker : '';
         }
-        if (string.length === key.length + leftMarker.length + rightMarker.length) {
+        if (
+          string.length ===
+          key.length + leftMarker.length + rightMarker.length
+        ) {
           wholeValue = value;
           return '';
         }
@@ -103,16 +118,40 @@ export function createContext(options = {}) {
       }
 
       if (localPromises.length !== 0) {
-        return Promise.all(localPromises)
-          .then(all => v.replace(/\$\{(\d+)\}/, (match, key) => all[parseInt(key, 10)]));
+        return Promise.all(localPromises).then(all =>
+          v.replace(/\$\{(\d+)\}/, (match, key) => all[parseInt(key, 10)])
+        );
       }
 
       return v;
     }
-    if (object === true || object === false || object === undefined || object === null ||
-      typeof object === 'number' || object instanceof Number ||
-      object instanceof Date) { // TODO: find a better way to identify special cases
+    if (
+      object === true ||
+      object === false ||
+      object === undefined ||
+      object === null ||
+      typeof object === 'number' ||
+      object instanceof Number ||
+      object instanceof Date
+    ) {
+      // TODO: find a better way to identify special cases
       return object;
+    }
+
+    if (object instanceof Map) {
+      const r = new Map();
+      for (const [key, value] of object.entries()) {
+        path.push({
+          key,
+          value
+        });
+
+        r.set(_expand(key, path, promises), _expand(value, path, promises));
+
+        path.pop();
+      }
+
+      return r;
     }
 
     if (Array.isArray(object)) {
