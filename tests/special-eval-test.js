@@ -1,9 +1,6 @@
 import test from 'ava';
 
-import {
-  createContext
-}
-from '../src/expander';
+import { createContext } from '../src/expander';
 
 function myContext() {
   return createContext({
@@ -25,34 +22,32 @@ test('expand special user defined string to object', t => {
 });
 
 test('expand special user defined expand with path', t => {
-  t.deepEqual(myContext().expand({
-    key1: '${path}',
-    key2: {
-      key3: '${path}',
-      key4: [0, '${path}'],
-      key5: [0, '${value}']
-    }
-  }), {
-    key1: '/key1',
-    key2: {
-      key3: '/key2/key3',
-      key4: [0, '/key2/key4/1'],
-      key5: [
-        0, {
-          key1: "${path}",
-          key2: {
-            key3: "${path}",
-            key4: [
-              0,
-              "${path}"
-            ],
-            key5: [
-              0,
-              "${value}"
-            ]
+  t.deepEqual(
+    myContext().expand({
+      key1: '${path}',
+      key2: {
+        key3: '${path}',
+        key4: [0, '${path}'],
+        key5: [0, '${value}']
+      }
+    }),
+    {
+      key1: '/key1',
+      key2: {
+        key3: '/key2/key3',
+        key4: [0, '/key2/key4/1'],
+        key5: [
+          0,
+          {
+            key1: '${path}',
+            key2: {
+              key3: '${path}',
+              key4: [0, '${path}'],
+              key5: [0, '${value}']
+            }
           }
-        }
-      ]
+        ]
+      }
     }
-  });
+  );
 });

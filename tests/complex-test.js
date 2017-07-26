@@ -1,9 +1,6 @@
 import test from 'ava';
 
-import {
-  createContext
-}
-from '../src/expander';
+import { createContext } from '../src/expander';
 
 test('expand string to object', t => {
   const context = createContext();

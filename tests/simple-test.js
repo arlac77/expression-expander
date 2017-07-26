@@ -1,9 +1,6 @@
 import test from 'ava';
 
-import {
-  createContext
-}
-from '../src/expander';
+import { createContext } from '../src/expander';
 
 test('plain expand string', t => {
   const context = createContext();
@@ -65,6 +62,19 @@ test('expand true', t => {
 test('expand Date', t => {
   const d = new Date();
   t.is(createContext().expand(d), d);
+});
+
+test('expand Map', t => {
+  const d = new Map([['k1${b}', 'v1${a}'], ['k2', 'v2']]);
+
+  const ctx = createContext();
+
+  ctx.properties = {
+    a: 'aa',
+    b: 2
+  };
+
+  t.deepEqual(ctx.expand(d), new Map([['k12', 'v1aa'], ['k2', 'v2']]));
 });
 
 test('expand undefined value', t => {

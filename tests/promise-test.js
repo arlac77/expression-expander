@@ -1,9 +1,6 @@
 import test from 'ava';
 
-import {
-  createContext
-}
-from '../src/expander';
+import { createContext } from '../src/expander';
 
 test('promise object value', async t => {
   const context = createContext();
@@ -48,9 +45,14 @@ test('promise array index', async t => {
 
   const v = await context.expand([1, 2, '${thePromise}', 4]);
 
-  t.deepEqual(v, [1, 2, {
-    value: 'the promise value'
-  }, 4]);
+  t.deepEqual(v, [
+    1,
+    2,
+    {
+      value: 'the promise value'
+    },
+    4
+  ]);
 });
 
 test('promise string expression', async t => {
