@@ -18,7 +18,7 @@
 Expression Expander
 -------------------
 
-Expands expressions in object graphs
+Expands _${to be evaluated}_ expressions in object graphs
 
 # example
 
@@ -26,23 +26,29 @@ Expands expressions in object graphs
 
 ```js
 const ee = require('expression-expander');
-
-let context = ee.createContext();
+const context = ee.createContext();
 
 context.properties = { aKey : "aValue", moreKeys : { "a" : 1, "b" : 2 } };
 
-console.log(context.expand("${aKey}"));
-
 // expanding hole expressions at the key position
-console.log(JSON.stringify(context.expand({"${moreKeys}" : {} })));
+console.log(JSON.stringify(context.expand({"simple": "${aKey}", "complex" : {"${moreKeys}" : {} }})));
 ```
 
 Output
 
+```json
+{"simple": "aValue", "complex": { "a" : 1, "b" : 2 }}
 ```
-aValue
-{ "a" : 1, "b" : 2 }
-```
+
+Any Object of the following types may be expanded
+---
+
+- String
+- Number
+- Object (key and value will be expanded)
+- Array
+- Map (key and value will be expanded)
+- Boolean
 
 # API Reference
 - expression-expander
