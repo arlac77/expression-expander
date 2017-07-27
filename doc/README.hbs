@@ -48,6 +48,7 @@ Any Object of the following types may be expanded
 - Object (key and value will be expanded)
 - Array
 - Map (key and value will be expanded)
+- Set
 - Boolean
 
 # API Reference

@@ -77,6 +77,19 @@ test('expand Map', t => {
   t.deepEqual(ctx.expand(d), new Map([['k12', 'v1aa'], ['k2', 'v2']]));
 });
 
+test('expand Set', t => {
+  const d = new Set(['k1${b}', 'v1${a}']);
+
+  const ctx = createContext();
+
+  ctx.properties = {
+    a: 'aa',
+    b: 2
+  };
+
+  t.deepEqual(ctx.expand(d), new Set(['k12', 'v1aa']));
+});
+
 test('expand undefined value', t => {
   t.is(createContext().expand('${a}'), '');
 });

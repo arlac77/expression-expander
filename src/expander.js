@@ -15,7 +15,7 @@ function _quote(str) {
  * @param [options.evaluate] {function} - evaluate(expression,context,path) function to evaluate expressions
  *    the default evaluation function does a lookup into the properties
  * @param [options.keepUndefinedValues] {bool} - true: is expression resolves to undefind the original string will be used (with surrounding ${})
- * @param [options.maxNestingLevel] {number} - max number of recursive calls to expand defaults to 20 
+ * @param [options.maxNestingLevel] {number} - max number of recursive calls to expand defaults to 20
  *
  * @return {ExpressionExpander} newly created expansion context
  */
@@ -146,6 +146,21 @@ export function createContext(options = {}) {
         });
 
         r.set(_expand(key, path, promises), _expand(value, path, promises));
+
+        path.pop();
+      }
+
+      return r;
+    }
+
+    if (object instanceof Set) {
+      const r = new Set();
+      for (const value of object.values()) {
+        path.push({
+          value
+        });
+
+        r.add(_expand(value, path, promises));
 
         path.pop();
       }
