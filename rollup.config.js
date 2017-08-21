@@ -1,9 +1,10 @@
 import pkg from './package.json';
 
 export default {
-  targets: [{
-    dest: pkg.main,
+  input: pkg.module,
+  output: {
+    file: pkg.main,
     format: 'cjs'
-  }],
+  },
   plugins: []
 };
