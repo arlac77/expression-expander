@@ -1,9 +1,10 @@
 import pkg from './package.json';
 
 export default {
-  output: [{
-    dest: pkg.main,
+  input: 'src/expander.js',
+  output: {
+    file: pkg.main,
     format: 'cjs'
-  }],
+  },
   plugins: []
 };
