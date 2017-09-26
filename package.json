@@ -7,8 +7,10 @@
   "scripts": {
     "cover": "nyc ava",
     "test": "ava",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
+    "semantic-release":
+      "semantic-release pre && npm publish && semantic-release post",
+    "docs":
+      "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
     "precover": "rollup -c tests/rollup.config.js",
@@ -21,17 +23,19 @@
   "engines": {
     "node": ">=8.4.0"
   },
-  "keywords": [
-    "expression",
-    "property",
-    "evaluate"
-  ],
+  "keywords": ["expression", "property", "evaluate"],
   "release": {
-    "verifyRelease": "cracks"
+    "verifyRelease": [
+      "cracks",
+      {
+        "path": "dont-crack",
+        "test-against": ["https://github.com/arlac77/config-expander"]
+      }
+    ]
   },
   "devDependencies": {
     "ava": "^0.22.0",
-    "cracks": "3.1.2",
+    "babel-preset-stage-3": "^6.24.1",
     "jsdoc-babel": "^0.3.0",
     "jsdoc-to-markdown": "^3.0.0",
     "markdown-doctest": "^0.9.1",
@@ -40,8 +44,9 @@
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-multi-entry": "^2.0.1",
     "semantic-release": "^8.0.0",
-    "xo": "^0.19.0",
-    "babel-preset-stage-3": "^6.24.1"
+    "cracks": "3.1.2",
+    "dont-crack": "^1.2.1",
+    "xo": "^0.19.0"
   },
   "license": "BSD-2-Clause",
   "bugs": {
@@ -56,13 +61,8 @@
     }
   ],
   "nyc": {
-    "include": [
-      "build/test-bundle.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/test-bundle.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "template": {
@@ -77,11 +77,7 @@
     "babel": {
       "presets": []
     },
-    "files": [
-      "build/test-bundle.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/test-bundle.js"],
+    "require": ["babel-register"]
   }
 }
