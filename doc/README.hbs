@@ -18,7 +18,8 @@
 Expression Expander
 -------------------
 
-Expands _${to be evaluated}_ expressions in object graphs
+Expands _${to be evaluated}_ expressions in object graphs.
+The actual expression syntax inside of the _${evaluated}_ is not defined within this module (only simple key lookup)
 
 # example
 
@@ -50,6 +51,7 @@ Any Object of the following types may be expanded
 - Map (key and value will be expanded)
 - Set
 - Boolean
+- Promise
 
 # API Reference
 {{#modules~}}
