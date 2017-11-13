@@ -42,11 +42,11 @@ export function createContext(options = {}) {
   const context = Object.create(
     {
       /**
-     * Expands object
-     * @param object {any} to expand
-     * @param [path] {object[]} describing the location in the to expanding data source
-     * @return {any} expanded object
-     */
+       * Expands object
+       * @param object {any} to expand
+       * @param [path] {object[]} describing the location in the to expanding data source
+       * @return {any} expanded object
+       */
       expand(
         object,
         path = [
@@ -65,8 +65,8 @@ export function createContext(options = {}) {
     },
     {
       /**
-     * Properties used for the default expander implementation
-     */
+       * Properties used for the default expander implementation
+       */
       properties: {
         get() {
           return properties;
@@ -181,10 +181,7 @@ export function createContext(options = {}) {
         const r = _expand(o, path, promises);
         if (r instanceof Promise) {
           promises.push(r);
-          r.then(f => {
-            array[index] = f;
-            return f;
-          });
+          r.then(f => (array[index] = f));
         }
         array[index] = r;
         path.pop();
@@ -205,10 +202,7 @@ export function createContext(options = {}) {
         const value = _expand(object[key], path, promises);
         if (value instanceof Promise) {
           promises.push(value);
-          value.then(v => {
-            newObject[newKey] = v;
-            return v;
-          });
+          value.then(v => (newObject[newKey] = v));
         }
         newObject[newKey] = value;
         path.pop();
