@@ -8,7 +8,8 @@
     "cover": "nyc --temp-directory build/nyc ava",
     "test": "ava",
     "semantic-release": "semantic-release",
-    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
+    "docs":
+      "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
     "precover": "rollup -c tests/rollup.config.js",
@@ -21,19 +22,13 @@
   "engines": {
     "node": ">=8.9.1"
   },
-  "keywords": [
-    "expression",
-    "property",
-    "evaluate"
-  ],
-  "release": {
+  "keywords": ["expression", "property", "evaluate"],
+  "_release": {
     "verifyRelease": [
       "cracks",
       {
         "path": "dont-crack",
-        "test-against": [
-          "https://github.com/arlac77/config-expander"
-        ]
+        "test-against": ["https://github.com/arlac77/config-expander"]
       }
     ]
   },
@@ -63,13 +58,8 @@
     }
   ],
   "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/*-test.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "template": {
@@ -84,11 +74,7 @@
     "babel": {
       "presets": []
     },
-    "files": [
-      "build/*-test.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/*-test.js"],
+    "require": ["babel-register"]
   }
 }
