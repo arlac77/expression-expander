@@ -8,7 +8,7 @@ function _quote(str) {
 
 /**
  * Creates a new expansion context
- * @param [options] {object}  object with the following keys
+ * @param [options] {Object}  object with the following keys
  * @param [options.valueQuoter] {function} - to quote expanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
@@ -43,8 +43,8 @@ export function createContext(options = {}) {
     {
       /**
        * Expands object
-       * @param object {any} to expand
-       * @param [path] {object[]} describing the location in the to expanding data source
+       * @param object {Object|string|bool|number|Map|Set} to expand
+       * @param [path] {Object[]} describing the location in the to expanding data source
        * @return {any} expanded object
        */
       expand(
