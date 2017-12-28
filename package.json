@@ -1,9 +1,21 @@
 {
   "name": "expression-expander",
   "version": "0.0.0-semantic-release",
-  "description": "expands expressions in object graphs",
   "main": "dist/expander.js",
   "module": "src/expander.js",
+  "description": "expands expressions in object graphs",
+  "keywords": [
+    "expression",
+    "property",
+    "evaluate"
+  ],
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
+  "license": "BSD-2-Clause",
   "scripts": {
     "cover": "nyc --temp-directory build/nyc ava",
     "test": "ava",
@@ -15,29 +27,7 @@
     "prepare": "rollup -c",
     "lint": "documentation lint src/expander.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arlac77/expression-expander.git"
-  },
-  "engines": {
-    "node": ">=8.9.3"
-  },
-  "keywords": [
-    "expression",
-    "property",
-    "evaluate"
-  ],
-  "release": {
-    "verifyRelease": [
-      "cracks",
-      {
-        "path": "dont-crack",
-        "test-against": [
-          "https://github.com/arlac77/config-expander"
-        ]
-      }
-    ]
-  },
+  "dependencies": {},
   "devDependencies": {
     "ava": "^0.24.0",
     "cracks": "3.1.2",
@@ -49,35 +39,27 @@
     "xo": "^0.19.0",
     "documentation": "^5.3.5"
   },
-  "license": "BSD-2-Clause",
+  "engines": {
+    "node": ">=8.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arlac77/expression-expander.git"
+  },
   "bugs": {
     "url": "https://github.com/arlac77/expression-expander/issues"
   },
   "homepage": "https://github.com/arlac77/expression-expander#readme",
-  "dependencies": {},
-  "contributors": [
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
-  "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
-    "report-dir": "./build/coverage"
-  },
-  "template": {
-    "repository": {
-      "url": "https://github.com/arlac77/npm-package-template.git"
-    }
-  },
-  "xo": {
-    "space": true
+  "release": {
+    "verifyRelease": [
+      "cracks",
+      {
+        "path": "dont-crack",
+        "test-against": [
+          "https://github.com/arlac77/config-expander"
+        ]
+      }
+    ]
   },
   "ava": {
     "babel": {
@@ -89,5 +71,23 @@
     "require": [
       "babel-register"
     ]
+  },
+  "nyc": {
+    "include": [
+      "build/*-test.js",
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "report-dir": "./build/coverage"
+  },
+  "xo": {
+    "space": true
+  },
+  "template": {
+    "repository": {
+      "url": "https://github.com/arlac77/npm-package-template.git"
+    }
   }
 }
