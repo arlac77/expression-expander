@@ -62,11 +62,35 @@ Output
 ### Table of Contents
 
 -   [expression-expander](#expression-expander)
+-   [Quoter](#quoter)
+-   [Evaluator](#evaluator)
 -   [createContext](#createcontext)
 -   [expand](#expand)
 -   [properties](#properties)
 
 ## expression-expander
+
+## Quoter
+
+Type: [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+**Parameters**
+
+-   `expression` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** quoted expression
+
+## Evaluator
+
+Type: [function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+**Parameters**
+
+-   `expression` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** describing the location in the to expanding data source
+
+Returns **any** expression result
 
 ## createContext
 
@@ -74,14 +98,14 @@ Creates a new expansion context
 
 **Parameters**
 
--   `options`  {Object}  object with the following keys
-    -   `options.valueQuoter`  {function} - to quote expanded values
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** object with the following keys (optional, default `{}`)
+    -   `options.valueQuoter` **[Quoter](#quoter)?** to quote expanded values
            by default no special quoting is done and the evaluated result will be direcly
            inserted into the output string
-    -   `options.evaluate`  {function} - evaluate(expression,context,path) function to evaluate expressions
+    -   `options.evaluate` **[Evaluator](#evaluator)?** function to evaluate expressions
            the default evaluation function does a lookup into the properties
-    -   `options.keepUndefinedValues`  {bool} - true: is expression resolves to undefind the original string will be used (with surrounding ${})
-    -   `options.maxNestingLevel`  {number} - max number of recursive calls to expand defaults to 20
+    -   `options.keepUndefinedValues` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** true: is expression resolves to undefind the original string will be used (with surrounding ${})
+    -   `options.maxNestingLevel` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** max number of recursive calls to expand defaults to 20
 
 Returns **ExpressionExpander** newly created expansion context
 
@@ -91,8 +115,8 @@ Expands object
 
 **Parameters**
 
--   `object`  {Object|string|bool|number|Map|Set} to expand
--   `path`  {Object\[]} describing the location in the to expanding data source
+-   `object` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | bool | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map) \| [Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set))** to expand
+-   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** describing the location in the to expanding data source (optional, default `[{value:object}]`)
 
 Returns **any** expanded object
 
