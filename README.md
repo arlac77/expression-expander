@@ -115,7 +115,7 @@ Expands object
 
 **Parameters**
 
--   `object` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | bool | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map) \| [Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set))** to expand
+-   `object` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map) \| [Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set))** to expand
 -   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** describing the location in the to expanding data source (optional, default `[{value:object}]`)
 
 Returns **any** expanded object

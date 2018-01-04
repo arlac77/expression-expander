@@ -59,7 +59,7 @@ export function createContext(options = {}) {
     {
       /**
        * Expands object
-       * @param {Object|string|bool|number|Map|Set} object to expand
+       * @param {Object|string|boolean|number|Map|Set} object to expand
        * @param {Object[]} [path]  describing the location in the to expanding data source
        * @return {any} expanded object
        */
