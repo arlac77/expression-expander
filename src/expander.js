@@ -7,15 +7,29 @@ function _quote(str) {
 }
 
 /**
+ * @callback Evaluator
+ * @param {string} expression
+ * @param {Object} context
+ * @param {[Object]} path
+ * @return {Object} expression evaluation result
+ */
+
+/**
+ * @callback Quoter
+ * @param {string} value
+ * @return {string} quoted value
+ */
+
+/**
  * Creates a new expansion context
- * @param [options] {Object}  object with the following keys
- * @param [options.valueQuoter] {function} - to quote expanded values
+ * @param {Object} [options] object with the following keys
+ * @param {Quoter} [options.valueQuoter] - to quote expanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
- * @param [options.evaluate] {function} - evaluate(expression,context,path) function to evaluate expressions
+ * @param {Evaluator} [options.evaluate] - evaluate(expression,context,path) function to evaluate expressions
  *    the default evaluation function does a lookup into the properties
- * @param [options.keepUndefinedValues] {bool} - true: is expression resolves to undefind the original string will be used (with surrounding ${})
- * @param [options.maxNestingLevel] {number} - max number of recursive calls to expand defaults to 20
+ * @param  {boolean} [options.keepUndefinedValues] - true: is expression resolves to undefind the original string will be used (with surrounding ${})
+ * @param {number} [options.maxNestingLevel] - max number of recursive calls to expand defaults to 20
  *
  * @return {ExpressionExpander} newly created expansion context
  */
@@ -43,8 +57,8 @@ export function createContext(options = {}) {
     {
       /**
        * Expands object
-       * @param object {Object|string|bool|number|Map|Set} to expand
-       * @param [path] {Object[]} describing the location in the to expanding data source
+       * @param {Object|string|bool|number|Map|Set} object to expand
+       * @param {Object[]} [path]  describing the location in the to expanding data source
        * @return {any} expanded object
        */
       expand(
