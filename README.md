@@ -105,6 +105,7 @@ Creates a new expansion context
            the default evaluation function does a lookup into the properties
     -   `options.keepUndefinedValues` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** true: is expression resolves to undefind the original string will be used (with surrounding ${})
     -   `options.maxNestingLevel` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** max number of recursive calls to expand defaults to 20
+    -   `options.properties` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** default properties to evaluate expression against
 
 Returns **ExpressionExpander** newly created expansion context
 

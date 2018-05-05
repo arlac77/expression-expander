@@ -23,14 +23,14 @@ function _quote(str) {
 /**
  * Creates a new expansion context
  * @param {Object} [options] object with the following keys
- * @param {Quoter} [options.valueQuoter] - to quote expanded values
+ * @param {Quoter} [options.valueQuoter] to quote expanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
- * @param {Evaluator} [options.evaluate] - evaluate(expression,context,path) function to evaluate expressions
+ * @param {Evaluator} [options.evaluate] evaluate(expression,context,path) function to evaluate expressions
  *    the default evaluation function does a lookup into the properties
- * @param  {boolean} [options.keepUndefinedValues] - true: is expression resolves to undefind the original string will be used (with surrounding ${})
- * @param {number} [options.maxNestingLevel] - max number of recursive calls to expand defaults to 20
- *
+ * @param  {boolean} [options.keepUndefinedValues] true: is expression resolves to undefind the original string will be used (with surrounding ${})
+ * @param {number} [options.maxNestingLevel] max number of recursive calls to expand defaults to 20
+ * @param {Object} [options.properties] default properties to evaluate expression against
  * @return {ExpressionExpander} newly created expansion context
  */
 export function createContext(options = {}) {
@@ -45,7 +45,7 @@ export function createContext(options = {}) {
   const valueQuoter = options.valueQuoter || _quote;
   const maxNestingLevel = options.maxNestingLevel || 20;
 
-  let properties = {};
+  let properties = options.properties || {};
 
   function _evaluate(expression) {
     return properties[expression];
