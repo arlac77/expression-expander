@@ -4,11 +4,7 @@
   "main": "dist/expander.js",
   "module": "src/expander.js",
   "description": "expands expressions in object graphs",
-  "keywords": [
-    "expression",
-    "property",
-    "evaluate"
-  ],
+  "keywords": ["expression", "property", "evaluate"],
   "contributors": [
     {
       "name": "Markus Felten",
@@ -51,14 +47,12 @@
     "url": "https://github.com/arlac77/expression-expander/issues"
   },
   "homepage": "https://github.com/arlac77/expression-expander#readme",
-  "release": {
+  "xrelease": {
     "verifyRelease": [
       "cracks",
       {
         "path": "dont-crack",
-        "test-against": [
-          "https://github.com/arlac77/config-expander"
-        ]
+        "test-against": ["https://github.com/arlac77/config-expander"]
       }
     ]
   },
@@ -66,21 +60,12 @@
     "babel": {
       "presets": []
     },
-    "files": [
-      "build/*-test.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/*-test.js"],
+    "require": ["babel-register"]
   },
   "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/*-test.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "xo": {
