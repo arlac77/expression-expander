@@ -1,6 +1,9 @@
 {
   "name": "expression-expander",
   "version": "0.0.0-semantic-release",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/expander.js",
   "module": "src/expander.js",
   "description": "expands expressions in object graphs",
