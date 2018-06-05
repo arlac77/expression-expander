@@ -62,9 +62,13 @@ Output
 
 -   [expression-expander](#expression-expander)
 -   [Evaluator](#evaluator)
+    -   [Parameters](#parameters)
 -   [Quoter](#quoter)
+    -   [Parameters](#parameters-1)
 -   [createContext](#createcontext)
+    -   [Parameters](#parameters-2)
 -   [expand](#expand)
+    -   [Parameters](#parameters-3)
 -   [properties](#properties)
 
 ## expression-expander
@@ -73,7 +77,7 @@ Output
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
-**Parameters**
+### Parameters
 
 -   `expression` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
@@ -85,7 +89,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
-**Parameters**
+### Parameters
 
 -   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
@@ -95,7 +99,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 Creates a new expansion context
 
-**Parameters**
+### Parameters
 
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** object with the following keys (optional, default `{}`)
     -   `options.valueQuoter` **[Quoter](#quoter)?** to quote expanded values
@@ -113,7 +117,7 @@ Returns **ExpressionExpander** newly created expansion context
 
 Expands object
 
-**Parameters**
+### Parameters
 
 -   `object` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map) \| [Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set))** to expand
 -   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>?** describing the location in the to expanding data source (optional, default `[{value:object}]`)
