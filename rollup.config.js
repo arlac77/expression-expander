@@ -11,6 +11,6 @@ export default {
     interop: false
   },
 
-  plugins: [resolve(), commonjs()],
+  plugins: [resolve(), commonjs(), cleanup()],
   input: pkg.module
 };
