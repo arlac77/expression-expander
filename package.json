@@ -60,9 +60,6 @@
   },
   "homepage": "https://github.com/arlac77/expression-expander#readme",
   "ava": {
-    "babel": {
-      "presets": []
-    },
     "files": [
       "build/*-test.js"
     ],
