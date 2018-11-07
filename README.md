@@ -30,7 +30,7 @@ const context = ee.createContext();
 
 context.properties = { aKey: 'aValue', moreKeys: { a: 1, b: 2 } };
 
-// expanding hole expressions at the key position
+// expanding whole expressions at the key position
 console.log(
   JSON.stringify(
     context.expand({ simple: '${aKey}', complex: { '${moreKeys}': {} } })
