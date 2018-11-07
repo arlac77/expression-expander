@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - 10.13
-  - 8.11
+  - 8.13
 sudo: 'false'
 branches:
   only:
