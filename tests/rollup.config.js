@@ -5,6 +5,12 @@ import istanbul from 'rollup-plugin-istanbul';
 
 export default {
   input: 'tests/**/*-test.js',
+  output: {
+    file: 'build/bundle-test.js',
+    format: 'cjs',
+    sourcemap: true,
+    interop: false
+  },
   external: ['ava'],
   plugins: [
     multiEntry(),
@@ -13,12 +19,5 @@ export default {
     istanbul({
       exclude: ['tests/**/*-test.js', 'node_modules/**/*']
     })
-  ],
-
-  output: {
-    file: 'build/bundle-test.js',
-    format: 'cjs',
-    sourcemap: true,
-    interop: false
-  }
+  ]
 };
