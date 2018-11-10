@@ -20,7 +20,7 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "cover": "c8 --temp-directory build/coverage ava && c8 report -r lcov --temp-directory build/coverage && nyc --temp-directory build/nyc ava",
+    "cover": "c8 --temp-directory build/coverage ava && c8 report -r lcov --temp-directory build/coverage",
     "test": "ava",
     "semantic-release": "semantic-release",
     "docs": "documentation readme src/expander.js --section=API",
