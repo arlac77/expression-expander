@@ -61,18 +61,8 @@
       "build/*-test.js"
     ],
     "require": [
-      "babel-register"
+      "esm"
     ]
-  },
-  "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
-    "report-dir": "./build/coverage"
   },
   "xo": {
     "space": true
