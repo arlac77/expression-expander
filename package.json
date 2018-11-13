@@ -62,10 +62,9 @@
     ],
     "require": [
       "esm"
-    ]
-  },
-  "xo": {
-    "space": true
+    ],
+    "babel": false,
+    "compileEnhancements": false
   },
   "template": {
     "repository": {
