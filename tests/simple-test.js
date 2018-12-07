@@ -74,6 +74,18 @@ test('expand true', t => {
   t.is(createContext().expand(true), true);
 });
 
+test('expand number', t => {
+  t.is(createContext().expand(42), 42);
+});
+
+test('expand bigint', t => {
+  t.is(createContext().expand(123n), 123n);
+});
+
+test('expand BigInt', t => {
+  t.is(createContext().expand(BigInt('9007199254740991')), BigInt('9007199254740991'));
+});
+
 test('expand Date', t => {
   const d = new Date();
   t.is(createContext().expand(d), d);

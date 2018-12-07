@@ -144,6 +144,7 @@ export function createContext(options = {}) {
       object === undefined ||
       object === null ||
       typeof object === 'number' ||
+      typeof object === 'bigint' ||
       object instanceof Number ||
       object instanceof Date
     ) {
