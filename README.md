@@ -17,23 +17,25 @@
 
 ## Expression Expander
 
-Expands _${to be evaluated}_ expressions in object graphs. The actual expression syntax inside of the _${evaluated}_ is not defined within this module (only simple key lookup)
+Expands _\\${to be evaluated}_ expressions in object graphs. The actual expression syntax inside of the _\\${evaluated}_ is not defined within this module (only simple key lookup)
 
 # example
 
 ## file.js
 
+<!-- skip-example -->
+
 ```js
-import { createContext } from 'expression-expander';
+import { createContext } from "expression-expander";
 
 const context = createContext();
 
-context.properties = { aKey: 'aValue', moreKeys: { a: 1, b: 2 } };
+context.properties = { aKey: "aValue", moreKeys: { a: 1, b: 2 } };
 
 // expanding whole expressions at the key position
 console.log(
   JSON.stringify(
-    context.expand({ simple: '${aKey}', complex: { '${moreKeys}': {} } })
+    context.expand({ simple: "${aKey}", complex: { "${moreKeys}": {} } })
   )
 );
 ```

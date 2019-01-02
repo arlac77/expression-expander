@@ -1,5 +1,5 @@
 module.exports = {
   require: {
-    'expression-expander': require('./dist/expander')
+    //  "expression-expander": require("./src/expander")
   }
 };
