@@ -1,68 +1,60 @@
-import test from 'ava';
+import test from "ava";
 
-import { createContext } from '../src/expander';
+import { createContext } from "../src/expander";
 
-test('promise object value', async t => {
+test("promise object value", async t => {
   const context = createContext();
 
   context.properties = {
-    thePromise: Promise.resolve('promise value')
+    thePromise: Promise.resolve("promise value")
   };
 
   const v = await context.expand({
-    some: '${thePromise}'
+    some: "${thePromise}"
   });
 
-  t.is(v.some, 'promise value');
+  t.is(v.some, "promise value");
 });
 
-test('promise object key', async t => {
+test("promise object key", async t => {
   const context = createContext();
 
   context.properties = {
     thePromise: Promise.resolve({
-      value: 'the promise value'
+      value: "the promise value"
     })
   };
 
   const v = await context.expand({
-    '${thePromise}': {}
+    "${thePromise}": {}
   });
 
   t.deepEqual(v, {
-    value: 'the promise value'
+    value: "the promise value"
   });
 });
 
-test('promise array index', async t => {
+test("promise array index", async t => {
   const context = createContext();
 
   context.properties = {
-    thePromise: Promise.resolve({
-      value: 'the promise value'
-    })
+    thePromise: Promise.resolve("the promise value"),
+    otherPromise: Promise.resolve("other promise value")
   };
 
-  const v = await context.expand([1, 2, '${thePromise}', 4]);
+  const v = await context.expand([1, 2, "${thePromise} ${otherPromise}", 4]);
 
-  t.deepEqual(v, [
-    1,
-    2,
-    {
-      value: 'the promise value'
-    },
-    4
-  ]);
+  t.deepEqual(v, [1, 2, "the promise value other promise value", 4]);
 });
 
-test('promise string expression', async t => {
+test("promise string expression", async t => {
   const context = createContext();
 
   context.properties = {
-    thePromise: Promise.resolve('the promise value')
+    thePromise: Promise.resolve("the promise value")
   };
 
-  const v = await context.expand('A${thePromise}B');
+  const v = await context.expand("A${thePromise}B");
 
-  t.is(v, 'Athe promise valueB');
+  t.is(v, "Athe promise valueB");
 });

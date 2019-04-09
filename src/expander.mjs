@@ -34,9 +34,9 @@ function _quote(str) {
  * @return {ExpressionExpander} newly created expansion context
  */
 export function createContext(options = {}) {
-  const leftMarker = options.leftMarker || '${';
-  const rightMarker = options.rightMarker || '}';
-  const markerRegexp = new RegExp(options.markerRegexp || /\${([^}]+)}/, 'g');
+  const leftMarker = options.leftMarker || "${";
+  const rightMarker = options.rightMarker || "}";
+  const markerRegexp = new RegExp(options.markerRegexp || /\${([^}]+)}/, "g");
   const keepUndefinedValues =
     options.keepUndefinedValues === undefined
       ? false
@@ -99,29 +99,29 @@ export function createContext(options = {}) {
       );
     }
 
-    if (typeof object === 'string' || object instanceof String) {
+    if (typeof object === "string" || object instanceof String) {
       let wholeValue;
 
       const localPromises = [];
       const v = object.replace(markerRegexp, (match, key, offset, string) => {
         let value = evaluate(key, context, path);
 
-        if (typeof value === 'string' || value instanceof String) {
+        if (typeof value === "string" || value instanceof String) {
           value = valueQuoter(_expand(value, path, promises));
         } else if (value === undefined) {
-          value = keepUndefinedValues ? leftMarker + key + rightMarker : '';
+          value = keepUndefinedValues ? leftMarker + key + rightMarker : "";
         }
         if (
           string.length ===
           key.length + leftMarker.length + rightMarker.length
         ) {
           wholeValue = value;
-          return '';
+          return "";
         }
 
         if (value instanceof Promise) {
           localPromises.push(value);
-          return '${' + (localPromises.length - 1) + '}';
+          return "${" + (localPromises.length - 1) + "}";
         }
         return value;
       });
@@ -132,7 +132,7 @@ export function createContext(options = {}) {
 
       if (localPromises.length !== 0) {
         return Promise.all(localPromises).then(all =>
-          v.replace(/\$\{(\d+)\}/, (match, key) => all[parseInt(key, 10)])
+          v.replace(/\$\{(\d+)\}/g, (match, key) => all[parseInt(key, 10)])
         );
       }
 
@@ -143,8 +143,8 @@ export function createContext(options = {}) {
       object === false ||
       object === undefined ||
       object === null ||
-      typeof object === 'number' ||
-      typeof object === 'bigint' ||
+      typeof object === "number" ||
+      typeof object === "bigint" ||
       object instanceof Number ||
       object instanceof Date
     ) {
@@ -209,7 +209,7 @@ export function createContext(options = {}) {
 
     for (const key of Object.keys(object)) {
       const newKey = _expand(key, path, promises);
-      if (typeof newKey === 'string' || newKey instanceof String) {
+      if (typeof newKey === "string" || newKey instanceof String) {
         path.push({
           key,
           value: object[key]
