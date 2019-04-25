@@ -1,6 +1,6 @@
 import test from "ava";
 
-import { createContext } from "../src/expander";
+import { createContext } from "../src/expander.mjs";
 
 test("promise object value", async t => {
   const context = createContext();

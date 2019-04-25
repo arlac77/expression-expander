@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { createContext } from '../src/expander';
+import { createContext } from '../src/expander.mjs';
 
 test('plain expand string', t => {
   const context = createContext();
