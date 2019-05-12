@@ -78,6 +78,11 @@ test('expand number', t => {
   t.is(createContext().expand(42), 42);
 });
 
+test('expand function', t => {
+  function x() {}
+  t.is(createContext().expand(x), x);
+});
+
 test('expand bigint', t => {
   t.is(createContext().expand(123n), 123n);
 });

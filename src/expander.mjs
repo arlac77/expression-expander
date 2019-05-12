@@ -150,13 +150,19 @@ export function createContext(options = {}) {
 
       return v;
     }
+    
+    switch(typeof object) {
+      case "number":
+      case "bigint":
+      case "function":
+        return object;
+    }
+    
     if (
       object === true ||
       object === false ||
       object === undefined ||
       object === null ||
-      typeof object === "number" ||
-      typeof object === "bigint" ||
       object instanceof Number ||
       object instanceof Date
     ) {
