@@ -29,3 +29,7 @@ jobs:
         skip_cleanup: 'true'
         script:
           - npx semantic-release
+script:
+  - npm run cover
+  - npx codecov
+  - cat ./build/coverage/lcov.info | npx coveralls
