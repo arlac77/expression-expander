@@ -78,6 +78,10 @@ test('expand number', t => {
   t.is(createContext().expand(42), 42);
 });
 
+test('expand Buffer', t => {
+  t.deepEqual(createContext().expand(Buffer.from([0x17,0x16])), Buffer.from([0x17,0x16]));
+});
+
 test('expand function', t => {
   function x() {}
   t.is(createContext().expand(x), x);

@@ -164,7 +164,8 @@ export function createContext(options = {}) {
       object === undefined ||
       object === null ||
       object instanceof Number ||
-      object instanceof Date
+      object instanceof Date ||
+      object instanceof Buffer
     ) {
       // TODO: find a better way to identify special cases
       return object;

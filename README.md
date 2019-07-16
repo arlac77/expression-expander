@@ -48,6 +48,7 @@ Output
 -   String
 -   Number
 -   BigInt
+-   Buffer
 -   Object (key and value will be expanded)
 -   Array
 -   Map (key and value will be expanded)
