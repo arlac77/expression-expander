@@ -1,15 +1,4 @@
 {
-  "xrelease": {
-    "verifyRelease": [
-      "cracks",
-      {
-        "path": "dont-crack",
-        "test-against": [
-          "https://github.com/arlac77/config-expander"
-        ]
-      }
-    ]
-  },
   "name": "expression-expander",
   "version": "0.0.0-semantic-release",
   "publishConfig": {
@@ -75,5 +64,16 @@
     "repository": {
       "url": "https://github.com/arlac77/npm-package-template-esm-only.git"
     }
+  },
+  "xrelease": {
+    "verifyRelease": [
+      "cracks",
+      {
+        "path": "dont-crack",
+        "test-against": [
+          "https://github.com/arlac77/config-expander"
+        ]
+      }
+    ]
   }
 }
