@@ -35,7 +35,7 @@
     "documentation": "^12.1.4",
     "esm": "^3.2.25",
     "markdown-doctest": "^1.0.0",
-    "semantic-release": "^16.0.0"
+    "semantic-release": "^16.0.1"
   },
   "engines": {
     "node": ">=12.14.1"
@@ -48,6 +48,11 @@
     "url": "https://github.com/arlac77/expression-expander/issues"
   },
   "homepage": "https://github.com/arlac77/expression-expander#readme",
+  "release": {
+    "verifyRelease": [
+      "cracks"
+    ]
+  },
   "ava": {
     "files": [
       "tests/*-test.mjs"
@@ -65,10 +70,5 @@
     "repository": {
       "url": "https://github.com/arlac77/npm-package-template-esm-only.git"
     }
-  },
-  "release": {
-    "verifyRelease": [
-      "cracks"
-    ]
   }
 }
