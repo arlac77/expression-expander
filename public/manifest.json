@@ -1,0 +1,10 @@
+{
+  "name": "expression-expander",
+  "description": "expands expressions in object graphs",
+  "icons": [
+    {
+      "src": "facicon.ico",
+      "sizes": "16x16"
+    }
+  ]
+}
