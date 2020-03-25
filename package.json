@@ -28,7 +28,7 @@
     "lint": "documentation lint src/expander.mjs"
   },
   "devDependencies": {
-    "ava": "^3.5.0",
+    "ava": "^3.5.1",
     "c8": "^7.1.0",
     "cracks": "git+https://github.com/arlac77/cracks.git",
     "documentation": "^12.1.4",
