@@ -31,7 +31,7 @@
     "ava": "^3.5.2",
     "c8": "^7.1.0",
     "cracks": "git+https://github.com/arlac77/cracks.git",
-    "documentation": "^12.1.4",
+    "documentation": "^12.2.0",
     "semantic-release": "^17.0.4"
   },
   "engines": {
