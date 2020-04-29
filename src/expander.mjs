@@ -150,14 +150,14 @@ export function createContext(options = {}) {
 
       return v;
     }
-    
-    switch(typeof object) {
+
+    switch (typeof object) {
       case "number":
       case "bigint":
       case "function":
         return object;
     }
-    
+
     if (
       object === true ||
       object === false ||
@@ -226,14 +226,14 @@ export function createContext(options = {}) {
 
     let newObject = {};
 
-    for (const key of Object.keys(object)) {
+    for (let [key, value] of Object.entries(object)) {
       const newKey = _expand(key, path, promises);
       if (typeof newKey === "string" || newKey instanceof String) {
         path.push({
           key,
-          value: object[key]
+          value
         });
-        const value = _expand(object[key], path, promises);
+        value = _expand(value, path, promises);
         if (value instanceof Promise) {
           promises.push(value);
           value.then(v => (newObject[newKey] = v));
