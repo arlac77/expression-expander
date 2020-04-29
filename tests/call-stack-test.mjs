@@ -1,15 +1,15 @@
-import test from 'ava';
+import test from "ava";
 
-import { createContext } from '../src/expander.mjs';
+import { createContext } from "../src/expander.mjs";
 
-test('unknown value', t => {
+test("unknown value", t => {
   const context = createContext({
     keepUndefinedValues: true
   });
 
   const json = {
-    key: '${unknown}'
+    key: "${unknown}"
   };
 
-  t.is(context.expand(json).key, '${unknown}');
+  t.is(context.expand(json).key, "${unknown}");
 });

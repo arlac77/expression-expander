@@ -1,8 +1,8 @@
-import test from 'ava';
+import test from "ava";
 
-import { createContext } from '../src/expander.mjs';
+import { createContext } from "../src/expander.mjs";
 
-test('expand string to object', t => {
+test("expand string to object", t => {
   const context = createContext();
 
   context.properties = {
@@ -12,12 +12,12 @@ test('expand string to object', t => {
     }
   };
 
-  const expanded = context.expand('${moreThanOne}');
+  const expanded = context.expand("${moreThanOne}");
   t.is(expanded.a, 1);
   t.is(expanded.b, 2);
 });
 
-test('expand string in array to object', t => {
+test("expand string in array to object", t => {
   const context = createContext();
 
   context.properties = {
@@ -27,14 +27,14 @@ test('expand string in array to object', t => {
     }
   };
 
-  const expanded = context.expand(['${moreThanOne}', 2, 3]);
+  const expanded = context.expand(["${moreThanOne}", 2, 3]);
 
   t.is(expanded[0].a, 1);
   t.is(expanded[0].b, 2);
   t.is(expanded[1], 2);
 });
 
-test('expand object key to object', t => {
+test("expand object key to object", t => {
   const context = createContext();
 
   context.properties = {
@@ -45,14 +45,14 @@ test('expand object key to object', t => {
   };
 
   const expanded = context.expand({
-    '${moreThanOne}': {}
+    "${moreThanOne}": {}
   });
 
   t.is(expanded.a, 1);
   t.is(expanded.b, 2);
 });
 
-test('expand object value to object', t => {
+test("expand object value to object", t => {
   const context = createContext();
 
   context.properties = {
@@ -63,7 +63,7 @@ test('expand object value to object', t => {
   };
 
   const expanded = context.expand({
-    aKey: '${moreThanOne}'
+    aKey: "${moreThanOne}"
   });
 
   t.is(expanded.aKey.a, 1);
