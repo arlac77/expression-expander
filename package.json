@@ -44,11 +44,6 @@
     "url": "https://github.com/arlac77/expression-expander/issues"
   },
   "homepage": "https://github.com/arlac77/expression-expander#readme",
-  "release": {
-    "verifyRelease": [
-      "cracks"
-    ]
-  },
   "template": {
     "inheritFrom": [
       "arlac77/template-esm-only",
