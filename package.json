@@ -29,7 +29,6 @@
   "devDependencies": {
     "ava": "^3.8.1",
     "c8": "^7.1.0",
-    "cracks": "git+https://github.com/arlac77/cracks.git",
     "documentation": "^12.3.0",
     "semantic-release": "^17.0.7"
   },
