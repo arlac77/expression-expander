@@ -17,6 +17,16 @@ test("plain expand string", t => {
   t.is(context.expand("A${c}C"), "AtextC");
 });
 
+test("expand empty string", t => {
+  const context = createContext({keepUndefinedValues: true});
+
+  context.properties = {
+    a: ""
+  };
+
+  t.is(context.expand("${a}"), "");
+});
+
 test("plain properties passed in options", t => {
   const context = createContext({
     properties: {
