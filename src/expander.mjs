@@ -174,14 +174,15 @@ export function createContext(options = {}) {
     if (object instanceof Map) {
       const r = new Map();
       for (const [key, value] of object.entries()) {
-        path.push({
-          key,
-          value
-        });
+        const path2 = [
+          ...path,
+          {
+            key,
+            value
+          }
+        ];
 
-        r.set(_expand(key, path, promises), _expand(value, path, promises));
-
-        path.pop();
+        r.set(_expand(key, path2, promises), _expand(value, path2, promises));
       }
 
       return r;
@@ -190,13 +191,7 @@ export function createContext(options = {}) {
     if (object instanceof Set) {
       const r = new Set();
       for (const value of object.values()) {
-        path.push({
-          value
-        });
-
-        r.add(_expand(value, path, promises));
-
-        path.pop();
+        r.add(_expand(value, [...path, { value }], promises));
       }
 
       return r;
@@ -207,18 +202,23 @@ export function createContext(options = {}) {
 
       for (let index = 0; index < object.length; index++) {
         const o = object[index];
-        path.push({
-          key: index,
-          value: o
-        });
 
-        const r = _expand(o, path, promises);
+        const r = _expand(
+          o,
+          [
+            ...path,
+            {
+              key: index,
+              value: o
+            }
+          ],
+          promises
+        );
         if (r instanceof Promise) {
           promises.push(r);
           r.then(f => (array[index] = f));
         }
         array[index] = r;
-        path.pop();
       }
 
       return array;
@@ -229,17 +229,22 @@ export function createContext(options = {}) {
     for (let [key, value] of Object.entries(object)) {
       const newKey = _expand(key, path, promises);
       if (typeof newKey === "string" || newKey instanceof String) {
-        path.push({
-          key,
-          value
-        });
-        value = _expand(value, path, promises);
+        value = _expand(
+          value,
+          [
+            ...path,
+            {
+              key,
+              value
+            }
+          ],
+          promises
+        );
         if (value instanceof Promise) {
           promises.push(value);
           value.then(v => (newObject[newKey] = v));
         }
         newObject[newKey] = value;
-        path.pop();
       } else {
         newObject = newKey;
       }
