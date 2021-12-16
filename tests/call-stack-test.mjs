@@ -1,6 +1,5 @@
 import test from "ava";
-
-import { createContext } from "../src/expander.mjs";
+import { createContext } from "expression-expander";
 
 test("unknown value", t => {
   const context = createContext({
