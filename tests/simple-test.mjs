@@ -220,7 +220,7 @@ test("expand circular transitivity with quoter", t => {
   });
 });
 
-test("expand special marker", t => {
+test("expand special marker {{xxx}}", t => {
   const context = createContext({
     leftMarker: "{{",
     rightMarker: "}}",
@@ -237,4 +237,24 @@ test("expand special marker", t => {
   t.is(context.expand("A{{a}}C"), "A1C");
   t.is(context.expand("A{{a}}{{b}}C"), "A12C");
   t.is(context.expand("A{{c}}C"), "AtextC");
+});
+
+
+test("expand special marker ${{xxx}}", t => {
+  const context = createContext({
+    leftMarker: "${{",
+    rightMarker: "}}",
+    markerRegexp: /\$\{\{([^}]+)\}\}/
+    });
+
+  context.properties = {
+    a: 1,
+    b: 2,
+    c: "text"
+  };
+
+  t.is(context.expand("${{a}}"), 1);
+  t.is(context.expand("A${{a}}C"), "A1C");
+  t.is(context.expand("A${{a}}${{b}}C"), "A12C");
+  t.is(context.expand("A${{c}}C"), "AtextC");
 });
