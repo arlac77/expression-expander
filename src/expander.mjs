@@ -164,8 +164,7 @@ export function createContext(options = {}) {
       object === undefined ||
       object === null ||
       object instanceof Number ||
-      object instanceof Date ||
-      object instanceof Buffer
+      object instanceof Date
     ) {
       // TODO: find a better way to identify special cases
       return object;
@@ -222,6 +221,10 @@ export function createContext(options = {}) {
       }
 
       return array;
+    }
+
+    if(object.constructor?.name === 'Buffer') {
+      return object;
     }
 
     let newObject = {};
