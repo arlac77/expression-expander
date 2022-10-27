@@ -28,9 +28,28 @@ jobs:
           path-to-lcov: build/coverage/lcov.info
           parallel: true
         continue-on-error: true
+  test-browser:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser:
+          - chromium
+          - firefox
+    steps:
+      - name: Test Browser ${{ matrix.browser }}
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 18.12.0
+          cache: npm
+      - run: npm ci
+      - run: npm run test:browser-ava --if-present
+        env:
+          BROWSER: ${{ matrix.browser }}
   release:
     needs:
       - test-node
+      - test-browser
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
