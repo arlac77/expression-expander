@@ -36,7 +36,6 @@ jobs:
           - chromium
           - firefox
     steps:
-      - name: Test Browser ${{ matrix.browser }}
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.5.1
         with:
