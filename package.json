@@ -7,9 +7,11 @@
   },
   "exports": {
     ".": {
-      "default": "./src/expander.mjs"
+      "default": "./src/expander.mjs",
+      "types": "./types/expander.d.mts"
     }
   },
+  "types": "./types/expander.d.mts",
   "description": "expands expressions in object graphs",
   "keywords": [
     "evaluate",

@@ -1,7 +1,3 @@
-/**
- * @module expression-expander
- */
-
 function _quote(str) {
   return str;
 }
@@ -33,6 +29,9 @@ function _quote(str) {
 /**
  * Creates a new expansion context
  * @param {Object} [options] object with the following keys
+ * @param {string} [options.leftMarker] lead in of expression
+ * @param {string} [options.rightMarker] lead out of expression
+ * @param {RegExp} [options.markerRegexp] expression with lead in / out
  * @param {Quoter} [options.valueQuoter] to quote expanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
@@ -43,25 +42,25 @@ function _quote(str) {
  * @param {Object} [options.properties] default properties to evaluate expression against
  * @return {ExpressionExpander} newly created expansion context
  */
-export function createContext(options = {}) {
-  const leftMarker = options.leftMarker || "${";
-  const rightMarker = options.rightMarker || "}";
-  const markerRegexp = new RegExp(options.markerRegexp || /\${([^}]+)}/, "g");
+export function createContext(options) {
+  const leftMarker = options?.leftMarker || "${";
+  const rightMarker = options?.rightMarker || "}";
+  const markerRegexp = new RegExp(options?.markerRegexp || /\${([^}]+)}/, "g");
   const keepUndefinedValues =
-    options.keepUndefinedValues === undefined
+    options?.keepUndefinedValues === undefined
       ? false
       : options.keepUndefinedValues;
 
-  const valueQuoter = options.valueQuoter || _quote;
-  const maxNestingLevel = options.maxNestingLevel || 20;
+  const valueQuoter = options?.valueQuoter || _quote;
+  const maxNestingLevel = options?.maxNestingLevel || 20;
 
-  let properties = options.properties || {};
+  let properties = options?.properties || {};
 
   function _evaluate(expression) {
     return properties[expression];
   }
 
-  const evaluate = options.evaluate || _evaluate;
+  const evaluate = options?.evaluate || _evaluate;
 
   const context = Object.create(
     {
