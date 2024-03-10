@@ -60,7 +60,6 @@ Output
 
 ### Table of Contents
 
-*   [expression-expander](#expression-expander)
 *   [Evaluator](#evaluator)
     *   [Parameters](#parameters)
 *   [PathEntry](#pathentry)
@@ -74,8 +73,6 @@ Output
     *   [properties](#properties-2)
 *   [createContext](#createcontext)
     *   [Parameters](#parameters-3)
-
-## expression-expander
 
 ## Evaluator
 
@@ -136,8 +133,11 @@ Creates a new expansion context
 
 ### Parameters
 
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** object with the following keys (optional, default `{}`)
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** object with the following keys
 
+    *   `options.leftMarker` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** lead in of expression
+    *   `options.rightMarker` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** lead out of expression
+    *   `options.markerRegexp` **[RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)?** expression with lead in / out
     *   `options.valueQuoter` **[Quoter](#quoter)?** to quote expanded values
         by default no special quoting is done and the evaluated result will be direcly
         inserted into the output string
