@@ -24,6 +24,7 @@ function _quote(str) {
 /**
  * @typedef {Object} ExpressionExpander
  * @property {Object} properties
+ * @property {function(string|boolean|number|bigint|Object|Map|Set,string):any} expand
  */
 
 /**
