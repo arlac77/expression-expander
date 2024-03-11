@@ -24,7 +24,7 @@ function _quote(str) {
 /**
  * @typedef {Object} ExpressionExpander
  * @property {Object} properties
- * @property {function(string|boolean|number|bigint|Object|Map|Set,string):any} expand
+ * @property {function(string|boolean|number|bigint|Object|Map|Set,[PathEntry[]]):any} expand
  */
 
 /**
@@ -223,7 +223,7 @@ export function createContext(options) {
       return array;
     }
 
-    if(object.constructor?.name === 'Buffer') {
+    if (object.constructor?.name === "Buffer") {
       return object;
     }
 
