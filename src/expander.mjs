@@ -22,9 +22,16 @@ function _quote(str) {
  */
 
 /**
+ * @callback Expander
+ * @param {string|boolean|number|bigint|Object|Map|Set} value
+ * @param {PathEntry[]} [path]
+ * @return {string|boolean|number|bigint|Object|Map|Set} expression evaluation result
+ */
+
+/**
  * @typedef {Object} ExpressionExpander
  * @property {Object} properties
- * @property {function(string|boolean|number|bigint|Object|Map|Set,PathEntry[]?):any} expand
+ * @property {Expander} expand
  */
 
 /**
@@ -66,11 +73,7 @@ export function createContext(options) {
   const context = Object.create(
     {
       /**
-       * expand
-       * @param {string|boolean|number|bigint|Object|Map|Set} object to expand
-       * @param {PathEntry[]} path describing the location in the to expanding data source
-       * @return {any} expanded object
-       * @memberof ExpressionExpander
+       * @type {Expander}
        */
       expand(
         object,
@@ -91,7 +94,6 @@ export function createContext(options) {
     {
       /**
        * Properties used for the default expander implementation
-       * @memberof ExpressionExpander
        */
       properties: {
         get() {
