@@ -66,13 +66,15 @@ Output
     *   [Properties](#properties)
 *   [Quoter](#quoter)
     *   [Parameters](#parameters-1)
+*   [Expander](#expander)
+    *   [Parameters](#parameters-2)
 *   [ExpressionExpander](#expressionexpander)
     *   [Properties](#properties-1)
-    *   [expand](#expand)
-        *   [Parameters](#parameters-2)
-    *   [properties](#properties-2)
 *   [createContext](#createcontext)
     *   [Parameters](#parameters-3)
+*   [expand](#expand)
+    *   [Parameters](#parameters-4)
+*   [properties](#properties-2)
 
 ## Evaluator
 
@@ -104,6 +106,17 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** quoted value
 
+## Expander
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+### Parameters
+
+*   `value` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | bigint | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map) | [Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set))**&#x20;
+*   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[PathEntry](#pathentry)>?**&#x20;
+
+Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | bigint | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map) | [Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set))** expression evaluation result
+
 ## ExpressionExpander
 
 Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
@@ -111,21 +124,7 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 ### Properties
 
 *   `properties` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
-
-### expand
-
-expand
-
-#### Parameters
-
-*   `object` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | bigint | [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) | [Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map) | [Set](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set))** to expand
-*   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[PathEntry](#pathentry)>** describing the location in the to expanding data source (optional, default `[{value:object}]`)
-
-Returns **any** expanded object
-
-### properties
-
-Properties used for the default expander implementation
+*   `expand` **[Expander](#expander)**&#x20;
 
 ## createContext
 
@@ -148,6 +147,19 @@ Creates a new expansion context
     *   `options.properties` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** default properties to evaluate expression against
 
 Returns **[ExpressionExpander](#expressionexpander)** newly created expansion context
+
+## expand
+
+Type: [Expander](#expander)
+
+### Parameters
+
+*   `object` &#x20;
+*   `path`   (optional, default `[{value:object}]`)
+
+## properties
+
+Properties used for the default expander implementation
 
 # install
 
