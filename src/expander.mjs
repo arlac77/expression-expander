@@ -154,6 +154,8 @@ export function createContext(options) {
     }
 
     switch (typeof object) {
+      case "undefined":
+      case "boolean":
       case "number":
       case "bigint":
       case "function":
@@ -161,9 +163,6 @@ export function createContext(options) {
     }
 
     if (
-      object === true ||
-      object === false ||
-      object === undefined ||
       object === null ||
       object instanceof Number ||
       object instanceof Date
