@@ -39,7 +39,7 @@ function _quote(str) {
  * @param {Object} [options] object with the following keys
  * @param {string} [options.leftMarker] lead in of expression
  * @param {string} [options.rightMarker] lead out of expression
- * @param {RegExp} [options.markerRegexp] expression with lead in / out
+ * @param {RegExp|string} [options.markerRegexp] expression with lead in / out
  * @param {Quoter} [options.valueQuoter] to quote expanded values
  *    by default no special quoting is done and the evaluated result will be direcly
  *    inserted into the output string
