@@ -136,7 +136,7 @@ Creates a new expansion context
 
     *   `options.leftMarker` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** lead in of expression
     *   `options.rightMarker` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** lead out of expression
-    *   `options.markerRegexp` **[RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp)?** expression with lead in / out
+    *   `options.markerRegexp` **([RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))?** expression with lead in / out
     *   `options.valueQuoter` **[Quoter](#quoter)?** to quote expanded values
         by default no special quoting is done and the evaluated result will be direcly
         inserted into the output string
